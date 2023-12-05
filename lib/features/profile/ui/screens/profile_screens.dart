@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+class ProfileScreens extends StatelessWidget {
+  const ProfileScreens({super.key});
 
   @override
   Widget build(BuildContext context) {

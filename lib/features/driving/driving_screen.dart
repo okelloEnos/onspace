@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class DashboardPage extends StatelessWidget {
-  const DashboardPage({super.key});
+class DrivingScreen extends StatelessWidget {
+  const DrivingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Text('Dashboard'),
+      body: Center(child: Text('Driving Screen')),
     );
   }
 }
