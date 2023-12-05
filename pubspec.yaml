@@ -47,7 +47,11 @@ flutter:
   assets:
     - assets/images/
 
-#  fonts:
-#    - family: Laila
-#      fonts:
-#        - asset: assets/fonts/Laila-Light.ttf
+  fonts:
+    - family: Spline
+      fonts:
+        - asset: assets/fonts/SplineSans-Bold.ttf
+        - asset: assets/fonts/SplineSans-Light.ttf
+        - asset: assets/fonts/SplineSans-Medium.ttf
+        - asset: assets/fonts/SplineSans-Regular.ttf
+        - asset: assets/fonts/SplineSans-SemiBold.ttf
