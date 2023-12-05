@@ -1,0 +1,26 @@
+[
+  {
+    "userId": "1446787",
+    "name": "Jeniffer",
+    "category": "people",
+    "avatar": "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?q=80&w=1304&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "location": {
+      "latitude": -1.2029682,
+      "longitude": 36.7701849,
+      "street": "Club Decimo",
+      "updatedOn": "2023-01-01T20:09:50Z"
+    }
+  },
+  {
+    "userId": "1357899",
+    "name": "Keys",
+    "category": "item",
+    "avatar": "https://images.unsplash.com/photo-1635696860867-238c2fa072bb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "location":  {
+      "latitude": -1.2107673,
+      "longitude": 36.7920619,
+      "street": "Two Rivers",
+      "updatedOn": "2023-01-01T08:17:10Z"
+    }
+  }
+]

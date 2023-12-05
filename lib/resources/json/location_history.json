@@ -1,0 +1,60 @@
+[
+  {
+    "userId": "1446787",
+    "locationHistory": [
+      {
+        "latitude": -1.2029682,
+        "longitude": 36.7701849,
+        "street": "Club Decimo",
+        "updatedOn": "2023-01-01T20:09:50Z"
+      },
+      {
+        "latitude": 37.7749,
+        "longitude": -122.4194,
+        "street": "Luthuli street",
+        "updatedOn": "2023-01-01T12:00:00Z"
+      },
+      {
+        "latitude": 37.7749,
+        "longitude": -122.4194,
+        "street": "Mwagosi street",
+        "updatedOn": "2023-01-01T12:00:00Z"
+      },
+      {
+        "latitude": 37.7749,
+        "longitude": -122.4194,
+        "street": "Moi street",
+        "updatedOn": "2023-01-01T12:00:00Z"
+      }
+    ]
+  },
+  {
+    "userId": "1357899",
+    "locationHistory": [
+      {
+        "latitude": -1.2107673,
+        "longitude": 36.7920619,
+        "street": "Two Rivers",
+        "updatedOn": "2023-01-01T08:17:10Z"
+      },
+      {
+        "latitude": 37.7749,
+        "longitude": -122.4194,
+        "street": "Magongo street",
+        "updatedOn": "2023-01-01T12:00:00Z"
+      },
+      {
+        "latitude": 37.7749,
+        "longitude": -122.4194,
+        "street": "Bokole street",
+        "updatedOn": "2023-01-01T12:00:00Z"
+      },
+      {
+        "latitude": 37.7749,
+        "longitude": -122.4194,
+        "street": "Changamwe street",
+        "updatedOn": "2023-01-01T12:00:00Z"
+      }
+    ]
+  }
+]
