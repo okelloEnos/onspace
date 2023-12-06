@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +9,7 @@ import 'package:onspace/features/home/bloc/bottom_navigation_bar_cubit/bottom_na
 import 'package:onspace/features/home/bloc/bottom_navigation_bar_cubit/bottom_navigation_history_cubit.dart';
 import 'package:onspace/features/safety/safety_screen.dart';
 import 'package:onspace/features/tag_location/ui/screens/tags_location_screen.dart';
+import 'package:onspace/resources/common_widget/curved_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -38,57 +41,74 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: theme.colorScheme.tertiary,
                     fontSize: 16,
                     fontFamily: 'Spline',
-                    fontWeight: FontWeight.w600,),
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 actions: [
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 10,),
+                      vertical: 10,
+                      horizontal: 10,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GestureDetector(
-                            onTap: () => Navigator.pop(context, true),
-                            child: Container(
-                              padding: const EdgeInsets.only(
-                                  left: 40,
-                                  right: 40,
-                                  top: 5,
-                                  bottom: 5,),
-                              decoration: const BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(5),),),
-                              child: Center(
-                                child: Text('Yes',
-                                    style: TextStyle(
-                                      color: theme.colorScheme.secondary,
-                                      fontSize: 14,
-                                      fontFamily: 'Spline',
-                                      fontWeight: FontWeight.w600,),),
+                          onTap: () => Navigator.pop(context, true),
+                          child: Container(
+                            padding: const EdgeInsets.only(
+                              left: 40,
+                              right: 40,
+                              top: 5,
+                              bottom: 5,
+                            ),
+                            decoration: const BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(5),
                               ),
-                            ),),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Yes',
+                                style: TextStyle(
+                                  color: theme.colorScheme.secondary,
+                                  fontSize: 14,
+                                  fontFamily: 'Spline',
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                         GestureDetector(
-                            onTap: () => Navigator.pop(context, false),
-                            child: Container(
-                              padding: const EdgeInsets.only(
-                                  left: 40,
-                                  right: 40,
-                                  top: 5,
-                                  bottom: 5,),
-                              decoration: const BoxDecoration(
-                                  color: Colors.green,
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(5),),),
-                              child: Center(
-                                child: Text('No',
-                                    style: TextStyle(
-                                      color: theme.colorScheme.secondary,
-                                      fontSize: 14,
-                                      fontFamily: 'Spline',
-                                      fontWeight: FontWeight.w600,),),
+                          onTap: () => Navigator.pop(context, false),
+                          child: Container(
+                            padding: const EdgeInsets.only(
+                              left: 40,
+                              right: 40,
+                              top: 5,
+                              bottom: 5,
+                            ),
+                            decoration: const BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(5),
                               ),
-                            ),),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'No',
+                                style: TextStyle(
+                                  color: theme.colorScheme.secondary,
+                                  fontSize: 14,
+                                  fontFamily: 'Spline',
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -116,59 +136,110 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         backgroundColor: theme.colorScheme.onPrimary,
         body: BlocBuilder<BottomNavigationBarCubit, int>(
-            builder: (context, currentTab) {
-          return IndexedStack(
-            index: currentTab,
-            children: const [
-              TagsLocationScreen(),
-              DrivingScreen(),
-              SafetyScreen(),
-              ChatScreen(),
-            ],
-          );
-        },),
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
-          child: BlocBuilder<BottomNavigationBarCubit, int>(
-              builder: (context, currentTab) {
-                return BottomNavigationBar(
-                  elevation: 0,
-                  currentIndex: currentTab,
-                  onTap: (index) {
-                    context
-                        .read<BottomNavigationBarCubit>()
-                        .updateCurrentTab(index: index);
-                    context
-                        .read<BottomNavigationHistoryCubit>()
-                        .updateTabHistory(index: index);
-                  },
-                  backgroundColor: theme.colorScheme.secondary,
-                  selectedItemColor: theme.colorScheme.tertiary,
-                  unselectedItemColor: theme.hintColor,
-                  showSelectedLabels: true,
-                  showUnselectedLabels: true,
-                  items: const [
-                    BottomNavigationBarItem(
-                      icon: Icon(Icons.map_outlined),
-                      label: 'Location',
-                    ),
-                    BottomNavigationBarItem(
-                      icon: Icon(Icons.drive_eta),
-                      label: 'Driving',
-                    ),
-                    BottomNavigationBarItem(
-                      icon: Icon(Icons.security),
-                      label: 'Safety',
-                    ),
-                    BottomNavigationBarItem(
-                      icon: Icon(Icons.chat),
-                      label: 'Chat',
-                    ),
+          builder: (context, currentTab) {
+            return Stack(
+              children: [
+                IndexedStack(
+                  index: currentTab,
+                  children: const [
+                    TagsLocationScreen(),
+                    DrivingScreen(),
+                    SafetyScreen(),
+                    ChatScreen(),
                   ],
-                );
-          },),
+                ),
+                Positioned(
+                  bottom: 15,
+                  left: 10,
+                  right: 10,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      BottomNavigationBar(
+                        elevation: 0,
+                        currentIndex: currentTab,
+                        onTap: (index) {
+                          context
+                              .read<BottomNavigationBarCubit>()
+                              .updateCurrentTab(index: index);
+                          context
+                              .read<BottomNavigationHistoryCubit>()
+                              .updateTabHistory(index: index);
+                        },
+                        backgroundColor: theme.colorScheme.secondary,
+                        selectedItemColor: theme.colorScheme.tertiary,
+                        unselectedItemColor: theme.hintColor,
+                        showSelectedLabels: true,
+                        showUnselectedLabels: true,
+                        items: const [
+                          BottomNavigationBarItem(
+                            icon: Icon(Icons.map_outlined),
+                            label: 'Location',
+                          ),
+                          BottomNavigationBarItem(
+                            icon: Icon(Icons.drive_eta),
+                            label: 'Driving',
+                          ),
+                          BottomNavigationBarItem(
+                            icon: Icon(Icons.security),
+                            label: 'Safety',
+                          ),
+                          BottomNavigationBarItem(
+                            icon: Icon(Icons.chat),
+                            label: 'Chat',
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            );
+          },
         ),
+        // bottomNavigationBar: Padding(
+        //   padding: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
+        //   child: BlocBuilder<BottomNavigationBarCubit, int>(
+        //       builder: (context, currentTab) {
+        //         return BottomNavigationBar(
+        //           elevation: 0,
+        //           currentIndex: currentTab,
+        //           onTap: (index) {
+        //             context
+        //                 .read<BottomNavigationBarCubit>()
+        //                 .updateCurrentTab(index: index);
+        //             context
+        //                 .read<BottomNavigationHistoryCubit>()
+        //                 .updateTabHistory(index: index);
+        //           },
+        //           backgroundColor: theme.colorScheme.secondary,
+        //           selectedItemColor: theme.colorScheme.tertiary,
+        //           unselectedItemColor: theme.hintColor,
+        //           showSelectedLabels: true,
+        //           showUnselectedLabels: true,
+        //           items: const [
+        //             BottomNavigationBarItem(
+        //               icon: Icon(Icons.map_outlined),
+        //               label: 'Location',
+        //             ),
+        //             BottomNavigationBarItem(
+        //               icon: Icon(Icons.drive_eta),
+        //               label: 'Driving',
+        //             ),
+        //             BottomNavigationBarItem(
+        //               icon: Icon(Icons.security),
+        //               label: 'Safety',
+        //             ),
+        //             BottomNavigationBarItem(
+        //               icon: Icon(Icons.chat),
+        //               label: 'Chat',
+        //             ),
+        //           ],
+        //         );
+        //   },),
+        // ),
       ),
     );
   }
 }
+

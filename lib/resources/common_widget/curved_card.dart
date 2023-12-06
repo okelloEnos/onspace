@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
 class CurvedCard extends StatelessWidget {
-  const CurvedCard({required this.child, super.key});
+  const CurvedCard({required this.child, required this.color, super.key});
   final Widget child;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
     return ClipPath(
       clipper: CurvedTopClipper(),
       child: Card(
+        color: color,
         elevation: 0,
         shape: CustomCardShape(),
         child: child,
