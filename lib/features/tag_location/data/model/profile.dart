@@ -21,27 +21,27 @@ class Profile {
   String? name;
   String? category;
   String? avatar;
-  Location? location;
+  LocationDetail? location;
 
   Map<String, dynamic> toJson() => _$ProfileToJson(this);
 }
 
 @JsonSerializable()
-class Location {
+class LocationDetail {
 
-  Location({
+  LocationDetail({
     this.latitude,
     this.longitude,
     this.street,
     this.updatedOn,
   });
 
-  factory Location.fromJson(Map<String, dynamic> json) =>
-      _$LocationFromJson(json);
+  factory LocationDetail.fromJson(Map<String, dynamic> json) =>
+      _$LocationDetailFromJson(json);
   double? latitude;
   double? longitude;
   String? street;
   DateTime? updatedOn;
 
-  Map<String, dynamic> toJson() => _$LocationToJson(this);
+  Map<String, dynamic> toJson() => _$LocationDetailToJson(this);
 }

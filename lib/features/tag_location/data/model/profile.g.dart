@@ -13,7 +13,7 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) => Profile(
       avatar: json['avatar'] as String?,
       location: json['location'] == null
           ? null
-          : Location.fromJson(json['location'] as Map<String, dynamic>),
+          : LocationDetail.fromJson(json['location'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$ProfileToJson(Profile instance) => <String, dynamic>{
@@ -24,7 +24,8 @@ Map<String, dynamic> _$ProfileToJson(Profile instance) => <String, dynamic>{
       'location': instance.location,
     };
 
-Location _$LocationFromJson(Map<String, dynamic> json) => Location(
+LocationDetail _$LocationDetailFromJson(Map<String, dynamic> json) =>
+    LocationDetail(
       latitude: (json['latitude'] as num?)?.toDouble(),
       longitude: (json['longitude'] as num?)?.toDouble(),
       street: json['street'] as String?,
@@ -33,7 +34,8 @@ Location _$LocationFromJson(Map<String, dynamic> json) => Location(
           : DateTime.parse(json['updatedOn'] as String),
     );
 
-Map<String, dynamic> _$LocationToJson(Location instance) => <String, dynamic>{
+Map<String, dynamic> _$LocationDetailToJson(LocationDetail instance) =>
+    <String, dynamic>{
       'latitude': instance.latitude,
       'longitude': instance.longitude,
       'street': instance.street,

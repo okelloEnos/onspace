@@ -10,6 +10,7 @@ import 'package:onspace/features/tag_location/data/repository/tags_location_hist
 import 'package:onspace/l10n/l10n.dart';
 import 'package:onspace/resources/constants/app_colors.dart';
 
+import '../../features/tag_location/cubit/markers_cubit.dart';
 import '../../main_development.dart';
 
 class OnSpaceApp extends StatelessWidget {
@@ -20,6 +21,7 @@ class OnSpaceApp extends StatelessWidget {
     return MultiBlocProvider(providers: [
       BlocProvider(create: (_) => BottomNavigationBarCubit()),
       BlocProvider(create: (_) => BottomNavigationHistoryCubit()),
+      BlocProvider(create: (_) => MarkersCubit()),
       BlocProvider(
           create: (_) => TagLocationCubit(
               tagsLocationHistory: TagsLocationHistory(

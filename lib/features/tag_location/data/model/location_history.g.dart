@@ -10,7 +10,7 @@ LocationHistory _$LocationHistoryFromJson(Map<String, dynamic> json) =>
     LocationHistory(
       userId: json['userId'] as String?,
       locationHistory: (json['locationHistory'] as List<dynamic>?)
-          ?.map((e) => Location.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => LocationDetail.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

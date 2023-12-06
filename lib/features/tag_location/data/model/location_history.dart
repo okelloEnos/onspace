@@ -5,7 +5,7 @@ part 'location_history.g.dart';
 @JsonSerializable()
 class LocationHistory {
   String? userId;
-  List<Location>? locationHistory;
+  List<LocationDetail>? locationHistory;
 
   LocationHistory({
     this.userId,

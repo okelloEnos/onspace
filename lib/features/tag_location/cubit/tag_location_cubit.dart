@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+
 import 'package:onspace/features/tag_location/data/model/profile.dart';
 
 import '../data/repository/tags_location_history.dart';
@@ -12,6 +13,7 @@ class TagLocationCubit extends Cubit<TagLocationState> {
     fetchTagsLocation();
   }
   final TagsLocationHistory _tagsLocationHistory;
+  // Map<Marker, Profile> markers = {};
 
   Future<void> fetchTagsLocation() async{
     try{
@@ -23,4 +25,42 @@ class TagLocationCubit extends Cubit<TagLocationState> {
       emit(TagsLocationError(errorMessage: e.toString()));
     }
   }
+
+//   // clear up markers with an empty set
+//   clearMarkers() {
+//     markers = {};
+//   }
+//
+// //  add a single marker to a map
+//   addMarker(BuildContext context, Profile profile) async {
+//     final Uint8List icon =
+//     await getBytesFromAssets('assets/images/rider.png', 100);
+//     markers.putIfAbsent(
+//         Marker(
+//             markerId: MarkerId('${profile.userId}'),
+//             position:
+//             profile.location == null ? LatLng(0.0, 0.0) :
+//             LatLng(profile.location?.latitude == null ? 0 : profile.location!.latitude!,
+//                 profile.location?.longitude == null ? 0 : profile.location!.longitude!),
+//             infoWindow: InfoWindow(
+//                 title: "${profile.name}",
+//                 snippet: "Tap for more details",
+//                 onTap: () {
+//                   print('a location icon has been pressed.');
+//                   Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreens(userId: '${profile.userId}')));
+//                 }),
+//             icon: BitmapDescriptor.fromBytes(icon)),
+//             () => profile);
+//
+//     markers = markers;
+//   }
 }
+// Future<Uint8List?> getBytesFromAssets(String path, int width) async {
+//   ByteData data = await rootBundle.load(path);
+//   ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+//       targetWidth: width);
+//   ui.FrameInfo fi = await codec.getNextFrame();
+//   return (await fi.image.toByteData(format: ui.ImageByteFormat.png))
+//       ?.buffer
+//       .asUint8List();
+// }
