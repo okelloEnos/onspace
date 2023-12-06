@@ -1,16 +1,14 @@
 import 'dart:async';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:onspace/features/tag_location/cubit/tag_location_cubit.dart';
-import 'package:onspace/features/tag_location/cubit/tag_location_cubit.dart';
-
-import '../../../../resources/common_widget/curved_card.dart';
-import '../widgets/tag_card.dart';
+import 'package:onspace/features/tag_location/ui/widgets/tag_card.dart';
+import 'package:onspace/resources/common_widget/curved_card.dart';
 
 class TagsLocationScreen extends StatefulWidget {
   const TagsLocationScreen({super.key});
@@ -124,21 +122,26 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
               setState(() {});
             },
           ),
-          BlocBuilder<TagLocationCubit, TagLocationState>(
-            builder: (context, state) {
-              if(state is TagsLocationLoading) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              else if(state is TagsLocationLoaded) {
-                return Text("data");
-              }
-              else if(state is TagsLocationError) {
-                return Text("error");
-              }
-              else {
-                return Container();
-              }
-            },
+          Positioned(
+            top: 80,
+            left: 10,
+            right: 10,
+            child: BlocBuilder<TagLocationCubit, TagLocationState>(
+              builder: (context, state) {
+                if(state is TagsLocationLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                else if(state is TagsLocationLoaded) {
+                  return Text("data");
+                }
+                else if(state is TagsLocationError) {
+                  return Text("error");
+                }
+                else {
+                  return Container();
+                }
+              },
+            ),
           ),
           Positioned(
             bottom: 80,

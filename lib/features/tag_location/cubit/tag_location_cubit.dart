@@ -7,11 +7,11 @@ import '../data/repository/tags_location_history.dart';
 part 'tag_location_state.dart';
 
 class TagLocationCubit extends Cubit<TagLocationState> {
-  final TagsLocationHistory _tagsLocationHistory;
   TagLocationCubit({required TagsLocationHistory tagsLocationHistory}) :
         _tagsLocationHistory = tagsLocationHistory, super(TagLocationInitial()){
     fetchTagsLocation();
   }
+  final TagsLocationHistory _tagsLocationHistory;
 
   Future<void> fetchTagsLocation() async{
     try{

@@ -12,9 +12,8 @@ class TagsLocationHistory{
   // fetch tags location
   Future<List<Profile>> fetchTagsLocation() async{
     var response = await _tagsLocationDataProvider.fetchTagsLocationRequest();
-    List<dynamic> res = response as List<dynamic>;
-    List<Profile> tagsLocation = [];
-    tagsLocation = List<Profile>.from(res.map((e) => Profile.fromJson(e as Map<String, dynamic>)));
+    List<dynamic> res = response.data as List<dynamic>;
+    List<Profile> tagsLocation = List<Profile>.from(res.map((e) => Profile.fromJson(e as Map<String, dynamic>)));
     return tagsLocation;
   }
 
@@ -22,9 +21,8 @@ class TagsLocationHistory{
   Future<List<LocationHistory>> fetchTagsLocationHistory() async{
     final response = await _tagsLocationDataProvider
         .fetchTagsLocationHistoryRequest();
-    List<dynamic> res = response as List<dynamic>;
-    List<LocationHistory> tagsLocationHistory = [];
-    tagsLocationHistory = List<LocationHistory>.from(res.map((e) =>
+    List<dynamic> res = response.data as List<dynamic>;
+    List<LocationHistory> tagsLocationHistory = List<LocationHistory>.from(res.map((e) =>
         LocationHistory.fromJson(e as Map<String, dynamic>)));
     return tagsLocationHistory;
   }

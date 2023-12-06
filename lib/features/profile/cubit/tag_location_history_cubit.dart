@@ -1,16 +1,15 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-
-import '../../tag_location/data/model/location_history.dart';
-import '../../tag_location/data/repository/tags_location_history.dart';
+import 'package:onspace/features/tag_location/data/model/location_history.dart';
+import 'package:onspace/features/tag_location/data/repository/tags_location_history.dart';
 
 part 'tag_location_history_state.dart';
 
 class TagLocationHistoryCubit extends Cubit<TagLocationHistoryState> {
-  final TagsLocationHistory _tagsLocationHistory;
   TagLocationHistoryCubit({required TagsLocationHistory tagsLocationHistory}) :
         _tagsLocationHistory = tagsLocationHistory,
         super(TagLocationHistoryInitial());
+  final TagsLocationHistory _tagsLocationHistory;
 
   Future<void> fetchTagsLocationHistory({required String userId}) async{
     try{
