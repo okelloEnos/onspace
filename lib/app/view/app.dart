@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onspace/counter/counter.dart';
+import 'package:onspace/features/home/bloc/bottom_navigation_bar_cubit/bottom_navigation_bar_cubit.dart';
+import 'package:onspace/features/home/bloc/bottom_navigation_bar_cubit/bottom_navigation_history_cubit.dart';
+import 'package:onspace/features/home/ui/screens/home_screen.dart';
 import 'package:onspace/l10n/l10n.dart';
-
-import '../../features/home/bloc/bottom_navigation_bar_cubit/bottom_navigation_bar_cubit.dart';
-import '../../features/home/bloc/bottom_navigation_bar_cubit/bottom_navigation_history_cubit.dart';
+import 'package:onspace/resources/constants/app_colors.dart';
 
 class OnSpaceApp extends StatelessWidget {
   const OnSpaceApp({super.key});
@@ -18,7 +18,6 @@ class OnSpaceApp extends StatelessWidget {
       //     create: (_) => LogInBloc(
       //         logInRepository: LogInRepository(
       //             logInRemoteDataProvider: LogInRemoteDataProvider(dio: dio)))),
-
     ], child: const OnSpaceAppView(),);
   }
 }
@@ -26,11 +25,21 @@ class OnSpaceApp extends StatelessWidget {
 class OnSpaceAppView extends StatelessWidget {
   const OnSpaceAppView({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      themeMode: ThemeMode.light,
       theme: ThemeData(
+        hintColor: AppColors.greyColor,
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: AppColors.tertiaryColor,
+            primary: AppColors.primaryColor,
+            onPrimary: AppColors.whiteColor,
+            secondary: AppColors.secondaryColor,
+            onSecondary: AppColors.blackColor,
+            tertiary: AppColors.tertiaryColor,
+            onTertiary: AppColors.whiteColor,
+        ),
         appBarTheme: AppBarTheme(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         ),
@@ -38,7 +47,8 @@ class OnSpaceAppView extends StatelessWidget {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const CounterPage(),
+      debugShowCheckedModeBanner: false,
+      home: const HomeScreen(),
     );
   }
 }

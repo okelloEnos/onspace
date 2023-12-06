@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:location/location.dart';
 import 'package:onspace/features/chat/ui/chat_screen.dart';
 import 'package:onspace/features/driving/driving_screen.dart';
+import 'package:onspace/features/home/bloc/bottom_navigation_bar_cubit/bottom_navigation_bar_cubit.dart';
+import 'package:onspace/features/home/bloc/bottom_navigation_bar_cubit/bottom_navigation_history_cubit.dart';
 import 'package:onspace/features/safety/safety_screen.dart';
 import 'package:onspace/features/tag_location/ui/screens/tags_location_screen.dart';
-
-import '../../bloc/bottom_navigation_bar_cubit/bottom_navigation_bar_cubit.dart';
-import '../../bloc/bottom_navigation_bar_cubit/bottom_navigation_history_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,26 +20,30 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
-    var size = MediaQuery.of(context).size;
+    final theme = Theme.of(context);
+    // final size = MediaQuery.of(context).size;
+
     return WillPopScope(
       onWillPop: () async {
-        List<int> previousNavOptions =
+        final previousNavOptions =
             context.read<BottomNavigationHistoryCubit>().state;
         if (previousNavOptions.isEmpty) {
-          var actionSelected = await showAnimatedDialog<bool>(
+          final actionSelected = await showAnimatedDialog<bool>(
             context: context,
-            barrierDismissible: false,
             builder: (BuildContext context) {
               return AlertDialog(
                 content: Text(
                   'Do you wish to exit the app?',
-                  style: theme.textTheme.titleMedium,
+                  style: TextStyle(
+                    color: theme.colorScheme.tertiary,
+                    fontSize: 16,
+                    fontFamily: 'Spline',
+                    fontWeight: FontWeight.w600,),
                 ),
                 actions: [
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 10.0, horizontal: 10.0),
+                        vertical: 10, horizontal: 10,),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -49,36 +51,44 @@ class _HomeScreenState extends State<HomeScreen> {
                             onTap: () => Navigator.pop(context, true),
                             child: Container(
                               padding: const EdgeInsets.only(
-                                  left: 40.0,
-                                  right: 40.0,
-                                  top: 5.0,
-                                  bottom: 5.0),
-                              decoration: BoxDecoration(
-                                  color: theme.colorScheme.error,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(5.0))),
+                                  left: 40,
+                                  right: 40,
+                                  top: 5,
+                                  bottom: 5,),
+                              decoration: const BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(5),),),
                               child: Center(
                                 child: Text('Yes',
-                                    style: theme.textTheme.displayMedium),
+                                    style: TextStyle(
+                                      color: theme.colorScheme.secondary,
+                                      fontSize: 14,
+                                      fontFamily: 'Spline',
+                                      fontWeight: FontWeight.w600,),),
                               ),
-                            )),
+                            ),),
                         GestureDetector(
                             onTap: () => Navigator.pop(context, false),
                             child: Container(
                               padding: const EdgeInsets.only(
-                                  left: 40.0,
-                                  right: 40.0,
-                                  top: 5.0,
-                                  bottom: 5.0),
-                              decoration: BoxDecoration(
-                                  color: theme.colorScheme.primary,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(5.0))),
+                                  left: 40,
+                                  right: 40,
+                                  top: 5,
+                                  bottom: 5,),
+                              decoration: const BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(5),),),
                               child: Center(
                                 child: Text('No',
-                                    style: theme.textTheme.displayMedium,),
+                                    style: TextStyle(
+                                      color: theme.colorScheme.secondary,
+                                      fontSize: 14,
+                                      fontFamily: 'Spline',
+                                      fontWeight: FontWeight.w600,),),
                               ),
-                            ))
+                            ),),
                       ],
                     ),
                   ),
@@ -117,138 +127,47 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           );
         },),
-        bottomNavigationBar: BlocBuilder<BottomNavigationBarCubit, int>(
-            builder: (context, currentTab) {
-          // return CustomAnimatedBottomBar(
-          //     containerHeight: 60,
-          //     backgroundColor: theme.colorScheme.onPrimary,
-          //     selectedIndex: currentTab,
-          //     showElevation: true,
-          //     itemCornerRadius: 24,
-          //     curve: Curves.easeIn,
-          //     onItemSelected: (int index) {
-          //       context
-          //           .read<BottomNavigationBarCubit>()
-          //           .updateCurrentTab(index: index);
-          //       context
-          //           .read<BottomNavigationHistoryCubit>()
-          //           .updateTabHistory(index: index);
-          //     },
-          //     items: <BottomNavyBarItem>[
-          //       BottomNavyBarItem(
-          //         icon: Icon(
-          //           Icons.home,
-          //           color: currentTab == 0
-          //               ? theme.colorScheme.primary
-          //               : Colors.grey.shade400,
-          //           size: currentTab == 0 ? 26 : 24,
-          //         ),
-          //         title: Text(
-          //           'Home',
-          //           style: theme.textTheme.labelSmall,
-          //         ),
-          //         activeColor: theme.colorScheme.primary,
-          //         inactiveColor: theme.colorScheme.secondary,
-          //         textAlign: TextAlign.center,
-          //       ),
-          //       BottomNavyBarItem(
-          //         icon: Icon(
-          //           Icons.list_alt_rounded,
-          //           color: currentTab == 1
-          //               ? theme.colorScheme.primary
-          //               : Colors.grey.shade400,
-          //           size: currentTab == 1 ? 26 : 24,
-          //         ),
-          //         title: Text(
-          //           'My Leads',
-          //           style: theme.textTheme.labelSmall,
-          //         ),
-          //         activeColor: theme.colorScheme.primary,
-          //         inactiveColor: theme.colorScheme.secondary,
-          //         textAlign: TextAlign.center,
-          //       ),
-          //       BottomNavyBarItem(
-          //         icon: SizedBox(
-          //             height: currentTab == 2 ? 24 : 22,
-          //             width: currentTab == 2 ? 24 : 22,
-          //             child: Image.asset('assets/images/money.png',
-          //                 color: currentTab == 2
-          //                     ? theme.colorScheme.primary
-          //                     : Colors.grey.shade400)),
-          //         title: Text(
-          //           'My Money',
-          //           style: theme.textTheme.labelSmall,
-          //         ),
-          //         activeColor: theme.colorScheme.primary,
-          //         inactiveColor: theme.colorScheme.secondary,
-          //         textAlign: TextAlign.center,
-          //       ),
-          //       BottomNavyBarItem(
-          //         icon: SizedBox(
-          //             height: currentTab == 3 ? 24 : 22,
-          //             width: currentTab == 3 ? 24 : 22,
-          //             child: Image.asset('assets/images/userprofile_dash.png',
-          //                 color: currentTab == 3
-          //                     ? theme.colorScheme.primary
-          //                     : Colors.grey.shade400)),
-          //         title: Text(
-          //           'Profile',
-          //           style: theme.textTheme.labelSmall,
-          //         ),
-          //         activeColor: theme.colorScheme.primary,
-          //         inactiveColor: theme.colorScheme.secondary,
-          //         textAlign: TextAlign.center,
-          //       ),
-          //       BottomNavyBarItem(
-          //         icon: Icon(
-          //           Icons.notifications_active_outlined,
-          //           color: currentTab == 4
-          //               ? theme.colorScheme.primary
-          //               : Colors.grey.shade400,
-          //           size: currentTab == 4 ? 26 : 24,
-          //         ),
-          //         title: Text(
-          //           'Notifications',
-          //           style: theme.textTheme.labelSmall,
-          //         ),
-          //         activeColor: theme.colorScheme.primary,
-          //         inactiveColor: theme.colorScheme.secondary,
-          //         textAlign: TextAlign.center,
-          //       ),
-          //     ]);
-              return BottomNavigationBar(
-                currentIndex: currentTab,
-                onTap: (index) {
-                  context
-                      .read<BottomNavigationBarCubit>()
-                      .updateCurrentTab(index: index);
-                  context
-                      .read<BottomNavigationHistoryCubit>()
-                      .updateTabHistory(index: index);
-                },
-                backgroundColor: theme.colorScheme.onPrimary,
-                selectedItemColor: theme.colorScheme.primary,
-                unselectedItemColor: theme.colorScheme.secondary,
-                items: const [
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.home),
-                    label: 'Home',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.list_alt_rounded),
-                    label: 'My Leads',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.money),
-                    label: 'My Money',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.notifications_active_outlined),
-                    label: 'Notifications',
-                  ),
-                ],
-              );
-        }),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
+          child: BlocBuilder<BottomNavigationBarCubit, int>(
+              builder: (context, currentTab) {
+                return BottomNavigationBar(
+                  elevation: 0,
+                  currentIndex: currentTab,
+                  onTap: (index) {
+                    context
+                        .read<BottomNavigationBarCubit>()
+                        .updateCurrentTab(index: index);
+                    context
+                        .read<BottomNavigationHistoryCubit>()
+                        .updateTabHistory(index: index);
+                  },
+                  backgroundColor: theme.colorScheme.secondary,
+                  selectedItemColor: theme.colorScheme.tertiary,
+                  unselectedItemColor: theme.hintColor,
+                  showSelectedLabels: true,
+                  showUnselectedLabels: true,
+                  items: const [
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.map_outlined),
+                      label: 'Location',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.drive_eta),
+                      label: 'Driving',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.security),
+                      label: 'Safety',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.chat),
+                      label: 'Chat',
+                    ),
+                  ],
+                );
+          },),
+        ),
       ),
     );
   }
