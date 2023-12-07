@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:onspace/features/profile/ui/screens/profile_screens.dart';
 import 'package:onspace/features/tag_location/data/model/profile.dart';
+import 'package:onspace/resources/common_widget/custom_container.dart';
 
 class TagsCard extends StatelessWidget {
   const TagsCard({required this.isRecent, required this.userProfile, super.key});
@@ -11,14 +12,11 @@ class TagsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    // String? _remoteImage = "https://images.unsplash.com/photo-1519238263530-99b"
-    //     "dd11df2ea?q=80&w=1304&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA"
-    //     "3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
-    // String? _remoteImage;
+
     return GestureDetector(
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => ProfileScreens(userId: '${userProfile.userId}',
-          ))),
+          builder: (context) => ProfileScreens(profile: userProfile,
+          ),),),
       child: Padding(
         padding: const EdgeInsets.only(bottom: 10),
         child: Row(
@@ -76,23 +74,14 @@ class TagsCard extends StatelessWidget {
               ],
             ),
             const Spacer(),
-            isRecent ?  Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: theme.hintColor,
-                  width: 1,
-                ),
-                shape: BoxShape.circle,
+            isRecent ?  CustomContainer(child: Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: RotatedBox(
+                quarterTurns: 1,
+                child: Icon(Icons.battery_3_bar_outlined,
+                  color: theme.colorScheme.tertiary,),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: RotatedBox(
-                  quarterTurns: 1,
-                  child: Icon(Icons.battery_3_bar_outlined,
-                    color: theme.colorScheme.tertiary,),
-                ),
-              ),
-            ) : Text("12min updated",
+            )) : Text("12min updated",
                 style: TextStyle(
                     color: theme.colorScheme.tertiary,
                     fontSize: 14,

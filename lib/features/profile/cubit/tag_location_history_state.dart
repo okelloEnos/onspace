@@ -15,7 +15,7 @@ class TagsLocationHistoryLoading extends TagLocationHistoryState {
 }
 
 class TagsLocationHistoryLoaded extends TagLocationHistoryState {
-  final List<LocationHistory> tagsLocationHistory;
+  final List<LocationDetail> tagsLocationHistory;
 
   TagsLocationHistoryLoaded({required this.tagsLocationHistory});
 

@@ -12,6 +12,7 @@ class CurvedCard extends StatelessWidget {
       child: Card(
         color: color,
         elevation: 0,
+        margin: EdgeInsets.zero,
         shape: CustomCardShape(),
         child: child,
       ),

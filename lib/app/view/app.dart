@@ -45,6 +45,8 @@ class OnSpaceAppView extends StatelessWidget {
         hintColor: AppColors.greyColor,
         colorScheme: ColorScheme.fromSeed(
             seedColor: AppColors.tertiaryColor,
+            background: AppColors.backgroundWhiteColor,
+            onBackground: AppColors.blackColor,
             primary: AppColors.primaryColor,
             onPrimary: AppColors.whiteColor,
             secondary: AppColors.secondaryColor,

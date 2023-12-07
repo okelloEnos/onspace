@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:onspace/features/tag_location/data/model/location_history.dart';
+import 'package:onspace/features/tag_location/data/model/profile.dart';
 import 'package:onspace/features/tag_location/data/repository/tags_location_history.dart';
 
 part 'tag_location_history_state.dart';
@@ -16,7 +17,10 @@ class TagLocationHistoryCubit extends Cubit<TagLocationHistoryState> {
       emit(TagsLocationHistoryLoading());
       final tagsLocationHistory = await _tagsLocationHistory
           .fetchTagsLocationHistory();
-      emit(TagsLocationHistoryLoaded(tagsLocationHistory: tagsLocationHistory));
+      List<LocationDetail> locationHistory = tagsLocationHistory
+          .firstWhere((element) => element.userId?.toLowerCase()
+          == userId.toLowerCase()).locationHistory ?? [];
+      emit(TagsLocationHistoryLoaded(tagsLocationHistory: locationHistory));
     }
     catch(e){
       emit(TagsLocationHistoryError(errorMessage: e.toString()));

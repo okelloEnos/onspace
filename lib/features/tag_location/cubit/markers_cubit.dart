@@ -34,7 +34,8 @@ class MarkersCubit extends Cubit<Map<Marker, Profile>> {
           title: "${profile.name}",
           snippet: "Tap for more details",
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreens(userId: '${profile.userId}')));
+            Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                ProfileScreens(profile: profile)));
           },
         ),
         icon: BitmapDescriptor.fromBytes(icon),
