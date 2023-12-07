@@ -24,11 +24,11 @@ class OnSpaceApp extends StatelessWidget {
       BlocProvider(create: (_) => MarkersCubit()),
       BlocProvider(
           create: (_) => TagLocationCubit(
-              tagsLocationHistory: TagsLocationHistory(
+              tagsLocationRepository: TagsLocationRepository(
                   tagsLocationDataProvider: TagsLocationDataProvider(dio: dio)))),
       BlocProvider(
           create: (_) => TagLocationHistoryCubit(
-              tagsLocationHistory: TagsLocationHistory(
+              tagsLocationHistory: TagsLocationRepository(
                   tagsLocationDataProvider: TagsLocationDataProvider(dio: dio)))),
     ], child: const OnSpaceAppView(),);
   }
@@ -51,6 +51,8 @@ class OnSpaceAppView extends StatelessWidget {
             onSecondary: AppColors.blackColor,
             tertiary: AppColors.tertiaryColor,
             onTertiary: AppColors.whiteColor,
+          error: AppColors.redColor,
+          onError: AppColors.whiteColor,
         ),
         appBarTheme: AppBarTheme(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,

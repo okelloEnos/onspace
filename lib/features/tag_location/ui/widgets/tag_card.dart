@@ -1,21 +1,24 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:onspace/features/profile/ui/screens/profile_screens.dart';
+import 'package:onspace/features/tag_location/data/model/profile.dart';
 
 class TagsCard extends StatelessWidget {
-  const TagsCard({required this.isRecent, super.key});
+  const TagsCard({required this.isRecent, required this.userProfile, super.key});
   final bool isRecent;
+  final Profile userProfile;
 
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    String? _remoteImage = "https://images.unsplash.com/photo-1519238263530-99b"
-        "dd11df2ea?q=80&w=1304&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA"
-        "3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+    // String? _remoteImage = "https://images.unsplash.com/photo-1519238263530-99b"
+    //     "dd11df2ea?q=80&w=1304&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA"
+    //     "3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
     // String? _remoteImage;
     return GestureDetector(
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => ProfileScreens(userId: "1446787",))),
+          builder: (context) => ProfileScreens(userId: '${userProfile.userId}',
+          ))),
       child: Padding(
         padding: const EdgeInsets.only(bottom: 10),
         child: Row(
@@ -23,11 +26,11 @@ class TagsCard extends StatelessWidget {
             ClipRRect(
               borderRadius:
               BorderRadius.circular(10),
-              child: _remoteImage == null
+              child: userProfile.avatar == null
                   ? Image.asset('assets/images/profile_picture.png', height: 50, width: 50, fit: BoxFit.cover, )
                   : CachedNetworkImage(
                 imageUrl:
-                _remoteImage ?? '',
+                userProfile.avatar ?? '',
                 imageBuilder: (context,
                     imageProvider,) =>
                     Container(
@@ -58,13 +61,13 @@ class TagsCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Jeniffer",
+                Text('${userProfile.name}',
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.tertiary,
                         fontSize: 14,
                         fontFamily: 'Spline',
                         fontWeight: FontWeight.bold)),
-                Text("84Kamaraj St",
+                Text(userProfile.location?.street ?? 'No address',
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.tertiary,
                         fontSize: 14,

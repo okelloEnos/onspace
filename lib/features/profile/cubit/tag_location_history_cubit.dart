@@ -6,10 +6,10 @@ import 'package:onspace/features/tag_location/data/repository/tags_location_hist
 part 'tag_location_history_state.dart';
 
 class TagLocationHistoryCubit extends Cubit<TagLocationHistoryState> {
-  TagLocationHistoryCubit({required TagsLocationHistory tagsLocationHistory}) :
+  TagLocationHistoryCubit({required TagsLocationRepository tagsLocationHistory}) :
         _tagsLocationHistory = tagsLocationHistory,
         super(TagLocationHistoryInitial());
-  final TagsLocationHistory _tagsLocationHistory;
+  final TagsLocationRepository _tagsLocationHistory;
 
   Future<void> fetchTagsLocationHistory({required String userId}) async{
     try{

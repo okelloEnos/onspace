@@ -2,9 +2,9 @@ import 'package:onspace/features/tag_location/data/data_provider/tags_location_d
 import 'package:onspace/features/tag_location/data/model/location_history.dart';
 import 'package:onspace/features/tag_location/data/model/profile.dart';
 
-class TagsLocationHistory{
+class TagsLocationRepository{
 
-  TagsLocationHistory({
+  TagsLocationRepository({
     required TagsLocationDataProvider tagsLocationDataProvider,})
       : _tagsLocationDataProvider = tagsLocationDataProvider;
   final TagsLocationDataProvider _tagsLocationDataProvider;
