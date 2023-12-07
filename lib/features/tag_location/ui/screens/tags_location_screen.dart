@@ -12,6 +12,7 @@ import 'package:onspace/resources/common_widget/curved_card.dart';
 import 'package:onspace/resources/common_widget/error_card_widget.dart';
 import 'package:onspace/resources/common_widget/loading_widget.dart';
 
+import '../../../profile/ui/screens/profile_screens.dart';
 import '../../cubit/markers_cubit.dart';
 import '../../data/model/profile.dart';
 
@@ -83,16 +84,8 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    TagLocationState state = context.watch<TagLocationCubit>().state;
-    if(state is TagsLocationLoaded){
-      final profileList = state.tagsLocation;
-      for(Profile profile in profileList){
-        context.read<MarkersCubit>().addMarker(context, profile);
-      }
+ var markers1 = context.watch<MarkersCubit>().state;
 
-    }
-
- // var markers = context.watch<MarkersCubit>().state;
     return Scaffold(
       body: currentLocation == null
           ? const Center(child: Text('Loading'))
@@ -130,7 +123,13 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
                       'their location...');
                 }
                 else if(state is TagsLocationLoaded) {
-                  return Text("data: ${state.tagsLocation.length}");
+
+                    final profileList = state.tagsLocation;
+                    for(Profile profile in profileList){
+                      context.read<MarkersCubit>().addMarker(context, profile);
+                    }
+
+                  return Text("data: ${state.tagsLocation.length} || Markers: ${markers1.length}");
                 }
                 else if(state is TagsLocationError) {
                   return ErrorCardWidget(
