@@ -4,19 +4,14 @@ import 'package:onspace/features/home/bloc/bottom_navigation_bar_cubit/bottom_na
 import 'package:onspace/features/home/bloc/bottom_navigation_bar_cubit/bottom_navigation_history_cubit.dart';
 import 'package:onspace/features/home/ui/screens/home_screen.dart';
 import 'package:onspace/features/profile/cubit/tag_location_history_cubit.dart';
+import 'package:onspace/features/tag_location/cubit/markers_cubit.dart';
 import 'package:onspace/features/tag_location/cubit/tag_location_cubit.dart';
 import 'package:onspace/features/tag_location/data/data_provider/tags_location_data_provider.dart';
 import 'package:onspace/features/tag_location/data/repository/tags_location_history.dart';
 import 'package:onspace/l10n/l10n.dart';
-import 'package:onspace/map/custom_markers_widget.dart';
-import 'package:onspace/map/d.dart';
-import 'package:onspace/map/fd.dart';
+import 'package:onspace/main_development.dart';
 import 'package:onspace/resources/constants/app_colors.dart';
 
-import '../../features/tag_location/cubit/markers_cubit.dart';
-import '../../features/tag_location/cubit/markers_cubit.dart';
-import '../../main_development.dart';
-import '../../map/l.dart';
 
 class OnSpaceApp extends StatelessWidget {
   const OnSpaceApp({super.key});
@@ -30,11 +25,13 @@ class OnSpaceApp extends StatelessWidget {
       BlocProvider(
           create: (_) => TagLocationCubit(
               tagsLocationRepository: TagsLocationRepository(
-                  tagsLocationDataProvider: TagsLocationDataProvider(dio: dio)))),
+                  tagsLocationDataProvider: TagsLocationDataProvider(dio:
+                  dio,),),),),
       BlocProvider(
           create: (_) => TagLocationHistoryCubit(
               tagsLocationHistory: TagsLocationRepository(
-                  tagsLocationDataProvider: TagsLocationDataProvider(dio: dio)))),
+                  tagsLocationDataProvider: TagsLocationDataProvider(dio:
+                  dio,),),),),
     ], child: const OnSpaceAppView(),);
   }
 }
@@ -74,4 +71,3 @@ class OnSpaceAppView extends StatelessWidget {
     );
   }
 }
-

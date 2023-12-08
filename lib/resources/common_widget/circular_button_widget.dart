@@ -1,16 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CircularIconButton extends StatelessWidget {
-  final Widget child;
-  final double? iconSize;
-  final Color? iconColor;
-  final Color? containerColor;
-  final double? containerSize;
-  final double? shadowBlur;
-  final double? shadowSpread;
 
-  CircularIconButton({
-    required this.child,
+  const CircularIconButton({required this.child, super.key,
     this.iconSize ,
     this.iconColor,
     this.containerColor,
@@ -18,6 +10,13 @@ class CircularIconButton extends StatelessWidget {
     this.shadowBlur,
     this.shadowSpread,
   });
+  final Widget child;
+  final double? iconSize;
+  final Color? iconColor;
+  final Color? containerColor;
+  final double? containerSize;
+  final double? shadowBlur;
+  final double? shadowSpread;
 
   @override
   Widget build(BuildContext context) {
@@ -42,4 +41,3 @@ class CircularIconButton extends StatelessWidget {
     );
   }
 }
-

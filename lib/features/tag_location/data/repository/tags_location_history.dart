@@ -11,19 +11,19 @@ class TagsLocationRepository{
 
   // fetch tags location
   Future<List<Profile>> fetchTagsLocation() async{
-    var response = await _tagsLocationDataProvider.fetchTagsLocationRequest();
-    List<dynamic> res = response.data as List<dynamic>;
-    List<Profile> tagsLocation = List<Profile>.from(res.map((e) => Profile.fromJson(e as Map<String, dynamic>)));
+    final response = await _tagsLocationDataProvider
+        .fetchTagsLocationRequest() as List<dynamic>;
+    final tagsLocation = List<Profile>.from(response.map((e)
+    => Profile.fromJson(e as Map<String, dynamic>),),);
     return tagsLocation;
   }
 
   // fetch tags location history
   Future<List<LocationHistory>> fetchTagsLocationHistory() async{
     final response = await _tagsLocationDataProvider
-        .fetchTagsLocationHistoryRequest();
-    List<dynamic> res = response.data as List<dynamic>;
-    List<LocationHistory> tagsLocationHistory = List<LocationHistory>.from(res.map((e) =>
-        LocationHistory.fromJson(e as Map<String, dynamic>)));
+        .fetchTagsLocationHistoryRequest() as List<dynamic>;
+    final tagsLocationHistory = List<LocationHistory>.from(response.map((e) =>
+        LocationHistory.fromJson(e as Map<String, dynamic>),),);
     return tagsLocationHistory;
   }
 }

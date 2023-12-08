@@ -22,9 +22,9 @@ class LoadingWidget extends StatelessWidget {
               fontSize: 14,
               fontFamily: 'Spline',
               fontWeight: FontWeight.w600,
-            ),)
+            ),),
         ],
       ),
-    ));
+    ),);
   }
 }

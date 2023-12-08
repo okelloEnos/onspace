@@ -4,8 +4,6 @@ part 'location_history.g.dart';
 
 @JsonSerializable()
 class LocationHistory {
-  String? userId;
-  List<LocationDetail>? locationHistory;
 
   LocationHistory({
     this.userId,
@@ -14,7 +12,8 @@ class LocationHistory {
 
   factory LocationHistory.fromJson(Map<String, dynamic> json) =>
       _$LocationHistoryFromJson(json);
+  String? userId;
+  List<LocationDetail>? locationHistory;
 
   Map<String, dynamic> toJson() => _$LocationHistoryToJson(this);
 }
-

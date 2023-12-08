@@ -15,18 +15,18 @@ class TagsLocationHistoryLoading extends TagLocationHistoryState {
 }
 
 class TagsLocationHistoryLoaded extends TagLocationHistoryState {
-  final List<LocationDetail> tagsLocationHistory;
 
-  TagsLocationHistoryLoaded({required this.tagsLocationHistory});
+  const TagsLocationHistoryLoaded({required this.tagsLocationHistory});
+  final List<LocationDetail> tagsLocationHistory;
 
   @override
   List<Object> get props => [tagsLocationHistory];
 }
 
 class TagsLocationHistoryError extends TagLocationHistoryState {
-  final String errorMessage;
 
-  TagsLocationHistoryError({required this.errorMessage});
+  const TagsLocationHistoryError({required this.errorMessage});
+  final String errorMessage;
 
   @override
   List<Object> get props => [errorMessage];

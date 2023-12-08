@@ -13,10 +13,8 @@ final dio = Dio(BaseOptions(
   contentType: 'application/json',
 ),);
 
-// late SharedPreferences sharedPreferences;
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  // sharedPreferences = await SharedPreferences.getInstance();
   await bootstrap(() => const OnSpaceApp());
 }
