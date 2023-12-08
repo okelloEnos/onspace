@@ -80,7 +80,7 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
+    final currentFilter = context.watch<TagLocationCubit>().filter;
     return Scaffold(
       body: currentLocation == null
           ? const Center(child: Text('Loading'))
@@ -317,10 +317,7 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
                                                         .colorScheme.tertiary,
                                                     fontSize: 14,
                                                     fontFamily: 'Spline',
-                                                    fontWeight: context
-                                                                .watch<
-                                                        TagLocationCubit>()
-                                                                .filter ==
+                                                    fontWeight: currentFilter ==
                                                             TagsLocationFilter
                                                                 .all
                                                         ? FontWeight.bold
@@ -372,10 +369,7 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
                                                         .colorScheme.tertiary,
                                                     fontSize: 14,
                                                     fontFamily: 'Spline',
-                                                    fontWeight: context
-                                                                .watch<
-                                                        TagLocationCubit>()
-                                                                .filter ==
+                                                    fontWeight: currentFilter ==
                                                             TagsLocationFilter
                                                                 .people
                                                         ? FontWeight.bold
@@ -427,10 +421,7 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
                                                         .colorScheme.tertiary,
                                                     fontSize: 14,
                                                     fontFamily: 'Spline',
-                                                    fontWeight: context
-                                                                .watch<
-                                                        TagLocationCubit>()
-                                                                .filter ==
+                                                    fontWeight: currentFilter ==
                                                             TagsLocationFilter
                                                                 .items
                                                         ? FontWeight.bold

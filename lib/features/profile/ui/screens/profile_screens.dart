@@ -35,7 +35,15 @@ class _ProfileScreensState extends State<ProfileScreens> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
+    final date = '${_profile.location?.updatedOn}';
+    final hour = '${DateTime.tryParse(
+      date,
+    )?.hour}';
+    final min = NumberFormat('00').format(
+      DateTime.tryParse(
+        date,
+      )?.minute,
+    );
     return Scaffold(
       backgroundColor: theme.colorScheme.background,
       body: SafeArea(
@@ -251,14 +259,8 @@ class _ProfileScreensState extends State<ProfileScreens> {
                                   ),
                                   Text(
                                     'Since '
-                                    "${DateTime.tryParse(
-                                        "${_profile
-                                            .location?.updatedOn}")?.hour}"
-                                    ":${NumberFormat("00").format(
-                                      DateTime.tryParse(
-                                        "${_profile.location?.updatedOn}",
-                                      )?.minute,
-                                    )}",
+                                    '$hour'
+                                    ':$min',
                                     style: TextStyle(
                                       color: theme.colorScheme.tertiary,
                                       fontSize: 16,
@@ -359,15 +361,14 @@ class _ProfileScreensState extends State<ProfileScreens> {
                                       padding: EdgeInsets.zero,
                                       itemBuilder: (context, index) {
                                         final history = locationHistory[index];
-                                        final hour = "${DateTime.
-                                        tryParse(
-                                            "${history
-                                                .updatedOn}")?.hour}";
-                                        final min =
-                                            NumberFormat('00').format(
+                                        final date = '${history.updatedOn}';
+                                        final hour = '${DateTime.tryParse(
+                                          date,
+                                        )?.hour}';
+                                        final min = NumberFormat('00').format(
                                           DateTime.tryParse(
-                                              '${history.updatedOn}',)
-                                              ?.minute,
+                                            date,
+                                          )?.minute,
                                         );
                                         return Padding(
                                           padding: const EdgeInsets.only(
