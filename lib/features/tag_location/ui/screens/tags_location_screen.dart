@@ -63,9 +63,7 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
           ),
         );
       });
-      setState(() {
-
-      });
+      setState(() {});
     }
   }
 
