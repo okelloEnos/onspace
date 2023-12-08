@@ -251,7 +251,9 @@ class _ProfileScreensState extends State<ProfileScreens> {
                                   ),
                                   Text(
                                     'Since '
-                                    "${DateTime.tryParse("${_profile.location?.updatedOn}")?.hour}"
+                                    "${DateTime.tryParse(
+                                        "${_profile
+                                            .location?.updatedOn}")?.hour}"
                                     ":${NumberFormat("00").format(
                                       DateTime.tryParse(
                                         "${_profile.location?.updatedOn}",
@@ -357,6 +359,16 @@ class _ProfileScreensState extends State<ProfileScreens> {
                                       padding: EdgeInsets.zero,
                                       itemBuilder: (context, index) {
                                         final history = locationHistory[index];
+                                        final hour = "${DateTime.
+                                        tryParse(
+                                            "${history
+                                                .updatedOn}")?.hour}";
+                                        final min =
+                                            NumberFormat('00').format(
+                                          DateTime.tryParse(
+                                              '${history.updatedOn}',)
+                                              ?.minute,
+                                        );
                                         return Padding(
                                           padding: const EdgeInsets.only(
                                             bottom: 10,
@@ -377,12 +389,8 @@ class _ProfileScreensState extends State<ProfileScreens> {
                                               ),
                                               Text(
                                                 'Since '
-                                                "${DateTime.tryParse("${history.updatedOn}")?.hour}"
-                                                ":${NumberFormat("00").format(
-                                                  DateTime.tryParse(
-                                                          "${history.updatedOn}")
-                                                      ?.minute,
-                                                )}",
+                                                '$hour'
+                                                ':$min',
                                                 style: TextStyle(
                                                   color: theme
                                                       .colorScheme.tertiary,

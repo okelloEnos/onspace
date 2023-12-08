@@ -1,9 +1,7 @@
 import 'dart:async';
-// import 'dart:ui' as ui;
 
 import 'package:custom_map_markers/custom_map_markers.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -321,7 +319,7 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
                                                     fontFamily: 'Spline',
                                                     fontWeight: context
                                                                 .watch<
-                                                                    TagLocationCubit>()
+                                                        TagLocationCubit>()
                                                                 .filter ==
                                                             TagsLocationFilter
                                                                 .all
@@ -376,7 +374,7 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
                                                     fontFamily: 'Spline',
                                                     fontWeight: context
                                                                 .watch<
-                                                                    TagLocationCubit>()
+                                                        TagLocationCubit>()
                                                                 .filter ==
                                                             TagsLocationFilter
                                                                 .people
@@ -431,7 +429,7 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
                                                     fontFamily: 'Spline',
                                                     fontWeight: context
                                                                 .watch<
-                                                                    TagLocationCubit>()
+                                                        TagLocationCubit>()
                                                                 .filter ==
                                                             TagsLocationFilter
                                                                 .items
