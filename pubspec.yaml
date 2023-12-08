@@ -8,20 +8,47 @@ environment:
 
 dependencies:
   bloc: ^8.1.2
+  cached_network_image: ^3.3.0
+  custom_map_markers: ^0.0.2+1
+  dio: ^5.4.0
+  equatable: ^2.0.5
   flutter:
     sdk: flutter
+#  flutter_animate: ^4.3.0
+  flutter_animated_dialog: ^2.0.1
   flutter_bloc: ^8.1.3
+  flutter_cache_manager: ^3.3.1
   flutter_localizations:
     sdk: flutter
+  google_maps_flutter: ^2.5.0
   intl: ^0.18.0
+  json_annotation: ^4.8.1
+  location: ^5.0.3
+  mocktail: ^1.0.1
+#  page_transition: ^2.1.0
 
 dev_dependencies:
   bloc_test: ^9.1.4
   flutter_test:
     sdk: flutter
-  mocktail: ^1.0.0
   very_good_analysis: ^5.1.0
+  build_runner: 2.4.7
+  json_serializable: 6.7.1
+
 
 flutter:
   uses-material-design: true
   generate: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/
+
+  fonts:
+    - family: Spline
+      fonts:
+        - asset: assets/fonts/SplineSans-Bold.ttf
+        - asset: assets/fonts/SplineSans-Light.ttf
+        - asset: assets/fonts/SplineSans-Medium.ttf
+        - asset: assets/fonts/SplineSans-Regular.ttf
+        - asset: assets/fonts/SplineSans-SemiBold.ttf
