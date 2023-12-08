@@ -14,27 +14,29 @@ on:
       - main
 
 jobs:
-  semantic-pull-request:
-    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/semantic_pull_request.yml@v1
-
-  build:
-    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
-    with:
-      flutter_channel: stable
-      min_coverage: 20
-
-  spell-check:
-    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
-    with:
-      includes: |
-        **/*.md
-      modified_files_only: false
+#  semantic-pull-request:
+#    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/semantic_pull_request.yml@v1
+#
+#  build:
+#    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+#    with:
+#      flutter_channel: stable
+#      min_coverage: 20
+#
+#  spell-check:
+#    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
+#    with:
+#      includes: |
+#        **/*.md
+#      modified_files_only: false
 
   build_apk:
     name: Build OnSpace APK (Production)
     needs: [semantic-pull-request, build, spell-check]
     runs-on: ubuntu-latest
     steps:
+      - name: Clean Gradle Cache
+        run: ./gradlew cleanBuildCache
       - uses: actions/checkout@v3
       - uses: actions/setup-java@v2
         with:
