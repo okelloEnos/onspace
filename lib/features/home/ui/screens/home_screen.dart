@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onspace/features/chat/ui/chat_screen.dart';
 import 'package:onspace/features/driving/driving_screen.dart';
