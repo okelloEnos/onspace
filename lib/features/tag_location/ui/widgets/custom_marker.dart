@@ -14,53 +14,48 @@ class CustomMapMarker extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final theme = Theme.of(context);
-    return GestureDetector(
-      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => ProfileScreens(profile: profile,
-        ),),),
-      child: Stack(
-        children: [
-         Icon(
-            Icons.location_on,
-            color: theme.colorScheme.tertiary,
-            size: 55,
-          ),
-          Positioned(
-            left: 10,
-            top: 0,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                      color: theme.colorScheme.tertiary, borderRadius:
-                  BorderRadius.circular(4),),
-                  child: Padding(
-                    padding: const EdgeInsets.all(2),
-                    child: Container(
-                      width: 30,
-                      height: 30,
-                      padding: const EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                          image: DecorationImage(image: FileImage(file),
-                              fit: BoxFit.fill,),
-                          color: theme.colorScheme.tertiary, borderRadius:
-                      BorderRadius.circular(4),),
-                      // child: Image.file(file)
-                    ),
+    return Stack(
+      children: [
+       Icon(
+          Icons.location_on,
+          color: theme.colorScheme.tertiary,
+          size: 55,
+        ),
+        Positioned(
+          left: 10,
+          top: 0,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                    color: theme.colorScheme.tertiary, borderRadius:
+                BorderRadius.circular(4),),
+                child: Padding(
+                  padding: const EdgeInsets.all(2),
+                  child: Container(
+                    width: 30,
+                    height: 30,
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                        image: DecorationImage(image: FileImage(file),
+                            fit: BoxFit.fill,),
+                        color: theme.colorScheme.tertiary, borderRadius:
+                    BorderRadius.circular(4),),
+                    // child: Image.file(file)
                   ),
                 ),
-                const SizedBox(height: 2,),
-                CircularIconButton(
-                    containerColor: theme.colorScheme.tertiary,
-                    containerSize: 15,
-                    child: Icon(Icons.school_outlined,
-                        color: theme.colorScheme.secondary, size: 10,),),
-              ],
-            ),
+              ),
+              const SizedBox(height: 2,),
+              CircularIconButton(
+                  containerColor: theme.colorScheme.tertiary,
+                  containerSize: 15,
+                  child: Icon(Icons.school_outlined,
+                      color: theme.colorScheme.secondary, size: 10,),),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

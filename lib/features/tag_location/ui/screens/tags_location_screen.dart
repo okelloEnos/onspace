@@ -18,12 +18,7 @@ import 'package:onspace/resources/common_widget/curved_card.dart';
 import 'package:onspace/resources/common_widget/custom_container.dart';
 import 'package:onspace/resources/common_widget/error_card_widget.dart';
 import 'package:onspace/resources/common_widget/loading_widget.dart';
-
-import '../../../../map/custom_markers_widget.dart';
-import '../../../../map/fd.dart';
-import '../../../profile/ui/screens/profile_screens.dart';
 import '../../cubit/markers_cubit.dart';
-import '../../cubit/markers_updated_cubit.dart';
 import '../../data/model/profile.dart';
 
 class TagsLocationScreen extends StatefulWidget {
@@ -99,7 +94,7 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
           : Stack(
         children: [
           CustomGoogleMapMarkerBuilder(
-              customMarkers: context.watch<MarkersUpdatedCubit>().state,
+              customMarkers: context.watch<MarkersCubit>().state,
               builder: (context, markers){
                 if(markers == null){
                   return const Center(child: CircularProgressIndicator());
@@ -140,7 +135,7 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
 
                   final profileList = state.tagsLocation;
                   for(Profile profile in profileList){
-                    context.read<MarkersUpdatedCubit>().addMarker(context, profile);
+                    context.read<MarkersCubit>().addMarker(context, profile);
                   }
 
                   return Container();
@@ -288,7 +283,7 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
                                         const EdgeInsets.only(left: 0),
                                         child: GestureDetector(
                                           onTap: () {
-                                            context.read<MarkersUpdatedCubit>()
+                                            context.read<MarkersCubit>()
                                                 .clearMarkers();
                                             context.read<TagLocationCubit>()
                                                 .filterFetchedTagsLocation(
@@ -328,7 +323,7 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
                                         const EdgeInsets.only(left: 10),
                                         child: GestureDetector(
                                           onTap: () {
-                                            context.read<MarkersUpdatedCubit>()
+                                            context.read<MarkersCubit>()
                                                 .clearMarkers();
                                             context.read<TagLocationCubit>()
                                                 .filterFetchedTagsLocation(
@@ -367,7 +362,7 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
                                         const EdgeInsets.only(left: 10),
                                         child: GestureDetector(
                                           onTap: () {
-                                            context.read<MarkersUpdatedCubit>()
+                                            context.read<MarkersCubit>()
                                                 .clearMarkers();
                                             context.read<TagLocationCubit>()
                                                 .filterFetchedTagsLocation(
@@ -518,13 +513,10 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                GestureDetector(
-                  onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => TagsLocationScreen())),
-                  child: CircularIconButton(
-                    child: Icon(Icons.search_rounded,
-                        color: theme.colorScheme.tertiary),
-                    containerSize: 40,
-                  ),
+                CircularIconButton(
+                  child: Icon(Icons.search_rounded,
+                      color: theme.colorScheme.tertiary),
+                  containerSize: 40,
                 ),
                 CircularIconButton(
                   child: Icon(Icons.settings,

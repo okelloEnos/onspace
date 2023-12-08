@@ -14,7 +14,7 @@ import 'package:onspace/map/fd.dart';
 import 'package:onspace/resources/constants/app_colors.dart';
 
 import '../../features/tag_location/cubit/markers_cubit.dart';
-import '../../features/tag_location/cubit/markers_updated_cubit.dart';
+import '../../features/tag_location/cubit/markers_cubit.dart';
 import '../../main_development.dart';
 import '../../map/l.dart';
 
@@ -26,7 +26,7 @@ class OnSpaceApp extends StatelessWidget {
     return MultiBlocProvider(providers: [
       BlocProvider(create: (_) => BottomNavigationBarCubit()),
       BlocProvider(create: (_) => BottomNavigationHistoryCubit()),
-      BlocProvider(create: (_) => MarkersUpdatedCubit()),
+      BlocProvider(create: (_) => MarkersCubit()),
       BlocProvider(
           create: (_) => TagLocationCubit(
               tagsLocationRepository: TagsLocationRepository(
