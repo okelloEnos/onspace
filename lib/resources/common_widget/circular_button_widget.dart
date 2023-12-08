@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CircularIconButton extends StatelessWidget {
-
-  const CircularIconButton({required this.child, super.key,
-    this.iconSize ,
+  const CircularIconButton({
+    required this.child,
+    super.key,
+    this.iconSize,
     this.iconColor,
     this.containerColor,
     this.containerSize,

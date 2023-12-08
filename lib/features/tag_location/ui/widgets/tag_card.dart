@@ -5,8 +5,11 @@ import 'package:onspace/features/tag_location/data/model/profile.dart';
 import 'package:onspace/resources/common_widget/custom_container.dart';
 
 class TagsCard extends StatelessWidget {
-  const TagsCard(
-      {required this.isRecent, required this.userProfile, super.key,});
+  const TagsCard({
+    required this.isRecent,
+    required this.userProfile,
+    super.key,
+  });
 
   final bool isRecent;
   final Profile userProfile;
@@ -74,37 +77,50 @@ class TagsCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('${userProfile.name}',
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.tertiary,
-                        fontSize: 14,
-                        fontFamily: 'Spline',
-                        fontWeight: FontWeight.bold,),),
-                Text(userProfile.location?.street ?? 'No address',
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.tertiary,
-                        fontSize: 14,
-                        fontFamily: 'Spline',
-                        fontWeight: FontWeight.normal,),),
+                Text(
+                  '${userProfile.name}',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.tertiary,
+                    fontSize: 14,
+                    fontFamily: 'Spline',
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  userProfile.location?.street ?? 'No address',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.tertiary,
+                    fontSize: 14,
+                    fontFamily: 'Spline',
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
               ],
             ),
             const Spacer(),
-            if (isRecent) CustomContainer(
-                    child: Padding(
-                    padding: const EdgeInsets.all(3),
-                    child: RotatedBox(
-                      quarterTurns: 1,
-                      child: Icon(
-                        Icons.battery_3_bar_outlined,
-                        color: theme.colorScheme.tertiary,
-                      ),
+            if (isRecent)
+              CustomContainer(
+                child: Padding(
+                  padding: const EdgeInsets.all(3),
+                  child: RotatedBox(
+                    quarterTurns: 1,
+                    child: Icon(
+                      Icons.battery_3_bar_outlined,
+                      color: theme.colorScheme.tertiary,
                     ),
-                  ),) else Text('12min updated',
-                    style: TextStyle(
-                        color: theme.colorScheme.tertiary,
-                        fontSize: 14,
-                        fontFamily: 'Spline',
-                        fontWeight: FontWeight.normal,),),
+                  ),
+                ),
+              )
+            else
+              Text(
+                '12min updated',
+                style: TextStyle(
+                  color: theme.colorScheme.tertiary,
+                  fontSize: 14,
+                  fontFamily: 'Spline',
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
             const SizedBox(
               width: 8,
             ),
@@ -117,8 +133,10 @@ class TagsCard extends StatelessWidget {
                 padding: const EdgeInsets.all(6),
                 child: Transform.rotate(
                   angle: 1,
-                  child: Icon(Icons.navigation_outlined,
-                      color: theme.colorScheme.secondary,),
+                  child: Icon(
+                    Icons.navigation_outlined,
+                    color: theme.colorScheme.secondary,
+                  ),
                 ),
               ),
             ),

@@ -4,7 +4,6 @@ part 'location_history.g.dart';
 
 @JsonSerializable()
 class LocationHistory {
-
   LocationHistory({
     this.userId,
     this.locationHistory,

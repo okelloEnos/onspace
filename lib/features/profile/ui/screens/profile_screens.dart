@@ -251,13 +251,11 @@ class _ProfileScreensState extends State<ProfileScreens> {
                                   ),
                                   Text(
                                     'Since '
-                                    "${DateTime.tryParse("${_profile.location?.
-                                    updatedOn}")?.hour}"
+                                    "${DateTime.tryParse("${_profile.location?.updatedOn}")?.hour}"
                                     ":${NumberFormat("00").format(
                                       DateTime.tryParse(
-                                              "${_profile.
-                                              location?.updatedOn}",)
-                                          ?.minute,
+                                        "${_profile.location?.updatedOn}",
+                                      )?.minute,
                                     )}",
                                     style: TextStyle(
                                       color: theme.colorScheme.tertiary,
@@ -342,17 +340,18 @@ class _ProfileScreensState extends State<ProfileScreens> {
                             ),
                             Expanded(
                               child: BlocBuilder<TagLocationHistoryCubit,
-                                      TagLocationHistoryState>(
-                                  builder: (context, state) {
-                                if (state is TagsLocationHistoryLoading) {
-                                  return const LoadingWidget(
-                                    loadingText:
-                                        'Loading past location history...',
-                                  );
-                                } else if (state is TagsLocationHistoryLoaded) {
-                                  final locationHistory =
-                                      state.tagsLocationHistory;
-                                  return ListView.builder(
+                                  TagLocationHistoryState>(
+                                builder: (context, state) {
+                                  if (state is TagsLocationHistoryLoading) {
+                                    return const LoadingWidget(
+                                      loadingText:
+                                          'Loading past location history...',
+                                    );
+                                  } else if (state
+                                      is TagsLocationHistoryLoaded) {
+                                    final locationHistory =
+                                        state.tagsLocationHistory;
+                                    return ListView.builder(
                                       itemCount: locationHistory.length,
                                       shrinkWrap: true,
                                       padding: EdgeInsets.zero,
@@ -369,45 +368,50 @@ class _ProfileScreensState extends State<ProfileScreens> {
                                               Text(
                                                 '${history.street}',
                                                 style: TextStyle(
-                                                    color: theme
-                                                        .colorScheme.tertiary,
-                                                    fontSize: 16,
-                                                    fontFamily: 'Spline',
-                                                    fontWeight:
-                                                        FontWeight.normal,),
+                                                  color: theme
+                                                      .colorScheme.tertiary,
+                                                  fontSize: 16,
+                                                  fontFamily: 'Spline',
+                                                  fontWeight: FontWeight.normal,
+                                                ),
                                               ),
                                               Text(
                                                 'Since '
-                                                "${DateTime.tryParse("${history
-                                                    .updatedOn}")?.hour}"
-                                                ":${NumberFormat("00")
-                                                    .format(DateTime
-                                                    .tryParse("${history
-                                                    .updatedOn}")?.minute,)}",
+                                                "${DateTime.tryParse("${history.updatedOn}")?.hour}"
+                                                ":${NumberFormat("00").format(
+                                                  DateTime.tryParse(
+                                                          "${history.updatedOn}")
+                                                      ?.minute,
+                                                )}",
                                                 style: TextStyle(
-                                                    color: theme
-                                                        .colorScheme.tertiary,
-                                                    fontSize: 16,
-                                                    fontFamily: 'Spline',
-                                                    fontWeight:
-                                                        FontWeight.bold,),
+                                                  color: theme
+                                                      .colorScheme.tertiary,
+                                                  fontSize: 16,
+                                                  fontFamily: 'Spline',
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
                                             ],
                                           ),
                                         );
-                                      },);
-                                } else if (state is TagsLocationHistoryLoaded) {
-                                  return ErrorCardWidget(
+                                      },
+                                    );
+                                  } else if (state
+                                      is TagsLocationHistoryLoaded) {
+                                    return ErrorCardWidget(
                                       errorText: 'An error occurred while '
                                           'loading location history',
                                       retry: () => context
                                           .read<TagLocationHistoryCubit>()
                                           .fetchTagsLocationHistory(
-                                              userId: '${_profile.userId}',),);
-                                } else {
-                                  return Container();
-                                }
-                              },),
+                                            userId: '${_profile.userId}',
+                                          ),
+                                    );
+                                  } else {
+                                    return Container();
+                                  }
+                                },
+                              ),
                             ),
                           ],
                         ),
@@ -422,10 +426,17 @@ class _ProfileScreensState extends State<ProfileScreens> {
                 right: 0,
                 child: Padding(
                   padding: const EdgeInsets.only(
-                      left: 10, right: 10, bottom: 10,),
+                    left: 10,
+                    right: 10,
+                    bottom: 10,
+                  ),
                   child: Padding(
                     padding: const EdgeInsets.only(
-                        top: 10, bottom: 10, left: 4, right: 4,),
+                      top: 10,
+                      bottom: 10,
+                      left: 4,
+                      right: 4,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -448,14 +459,17 @@ class _ProfileScreensState extends State<ProfileScreens> {
                             margin: EdgeInsets.zero,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 40,),
+                                vertical: 10,
+                                horizontal: 40,
+                              ),
                               child: Text(
                                 'Follow',
                                 style: TextStyle(
-                                    color: theme.colorScheme.secondary,
-                                    fontSize: 16,
-                                    fontFamily: 'Spline',
-                                    fontWeight: FontWeight.bold,),
+                                  color: theme.colorScheme.secondary,
+                                  fontSize: 16,
+                                  fontFamily: 'Spline',
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),

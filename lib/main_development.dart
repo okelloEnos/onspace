@@ -4,14 +4,15 @@ import 'package:onspace/app/app.dart';
 import 'package:onspace/bootstrap.dart';
 import 'package:onspace/resources/constants/values.dart';
 
-Dio dio = Dio(BaseOptions(
-  baseUrl: baseUrl,
-  receiveDataWhenStatusError: true,
-  contentType: 'application/json',
-),);
+Dio dio = Dio(
+  BaseOptions(
+    baseUrl: baseUrl,
+    receiveDataWhenStatusError: true,
+    contentType: 'application/json',
+  ),
+);
 
-
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await bootstrap(() => const OnSpaceApp());
 }

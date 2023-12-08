@@ -25,27 +25,28 @@ class MarkersCubit extends Cubit<List<MarkerData>> {
       final File markerImageFile =
           await DefaultCacheManager().getSingleFile(profile.avatar ?? '');
       final data = MarkerData(
-          marker: Marker(
-            markerId: MarkerId('${profile.userId}'),
-            position: LatLng(
-              profile.location?.latitude == null
-                  ? 0
-                  : profile.location!.latitude!,
-              profile.location?.longitude == null
-                  ? 0
-                  : profile.location!.longitude!,
-            ),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => ProfileScreens(
-                    profile: profile,
-                  ),
-                ),
-              );
-            },
+        marker: Marker(
+          markerId: MarkerId('${profile.userId}'),
+          position: LatLng(
+            profile.location?.latitude == null
+                ? 0
+                : profile.location!.latitude!,
+            profile.location?.longitude == null
+                ? 0
+                : profile.location!.longitude!,
           ),
-          child: CustomMapMarker(profile: profile, file: markerImageFile),);
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute<ProfileScreens>(
+                builder: (context) => ProfileScreens(
+                  profile: profile,
+                ),
+              ),
+            );
+          },
+        ),
+        child: CustomMapMarker(profile: profile, file: markerImageFile),
+      );
 
       final newUpd = <MarkerData>[...updatedMarkers, data];
       emit(newUpd);

@@ -20,9 +20,7 @@ class CurvedCard extends StatelessWidget {
   }
 }
 
-
 class CustomCardShape extends RoundedRectangleBorder {
-
   @override
   Path getOuterPath(Rect rect, {TextDirection? textDirection}) {
     const radius = 16.0;
@@ -33,10 +31,18 @@ class CustomCardShape extends RoundedRectangleBorder {
       ..quadraticBezierTo(rect.right, rect.top, rect.right, rect.top + radius)
       ..lineTo(rect.right, rect.bottom - radius)
       ..quadraticBezierTo(
-          rect.right, rect.bottom, rect.right - radius, rect.bottom,)
+        rect.right,
+        rect.bottom,
+        rect.right - radius,
+        rect.bottom,
+      )
       ..lineTo(rect.left + radius, rect.bottom)
-      ..quadraticBezierTo(rect.left, rect.bottom, rect.left,
-          rect.bottom - radius,)
+      ..quadraticBezierTo(
+        rect.left,
+        rect.bottom,
+        rect.left,
+        rect.bottom - radius,
+      )
       ..lineTo(rect.left, rect.top + radius)
       ..quadraticBezierTo(rect.left, rect.top, rect.left + radius, rect.top);
 
@@ -44,17 +50,24 @@ class CustomCardShape extends RoundedRectangleBorder {
   }
 }
 
-
 class CurvedTopClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final path = Path()
       ..lineTo(0, size.height)
       ..quadraticBezierTo(
-          size.width / 2, size.height - 20, size.width, size.height,)
+        size.width / 2,
+        size.height - 20,
+        size.width,
+        size.height,
+      )
       ..lineTo(size.width, 0)
-    ..quadraticBezierTo(
-    size.width / 2, 20, 0, 0,);
+      ..quadraticBezierTo(
+        size.width / 2,
+        20,
+        0,
+        0,
+      );
 
     return path;
   }

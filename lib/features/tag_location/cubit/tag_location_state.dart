@@ -15,7 +15,6 @@ class TagsLocationLoading extends TagLocationState {
 }
 
 class TagsLocationLoaded extends TagLocationState {
-
   const TagsLocationLoaded({required this.tagsLocation});
   final List<Profile> tagsLocation;
 
@@ -24,7 +23,6 @@ class TagsLocationLoaded extends TagLocationState {
 }
 
 class TagsLocationError extends TagLocationState {
-
   const TagsLocationError({required this.errorMessage});
   final String errorMessage;
 

@@ -8,7 +8,6 @@ import 'package:onspace/features/home/bloc/bottom_navigation_bar_cubit/bottom_na
 import 'package:onspace/features/safety/safety_screen.dart';
 import 'package:onspace/features/tag_location/ui/screens/tags_location_screen.dart';
 
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 

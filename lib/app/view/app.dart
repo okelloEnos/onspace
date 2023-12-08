@@ -12,27 +12,37 @@ import 'package:onspace/l10n/l10n.dart';
 import 'package:onspace/main_development.dart';
 import 'package:onspace/resources/constants/app_colors.dart';
 
-
 class OnSpaceApp extends StatelessWidget {
   const OnSpaceApp({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      BlocProvider(create: (_) => BottomNavigationBarCubit()),
-      BlocProvider(create: (_) => BottomNavigationHistoryCubit()),
-      BlocProvider(create: (_) => MarkersCubit()),
-      BlocProvider(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => BottomNavigationBarCubit()),
+        BlocProvider(create: (_) => BottomNavigationHistoryCubit()),
+        BlocProvider(create: (_) => MarkersCubit()),
+        BlocProvider(
           create: (_) => TagLocationCubit(
-              tagsLocationRepository: TagsLocationRepository(
-                  tagsLocationDataProvider: TagsLocationDataProvider(dio:
-                  dio,),),),),
-      BlocProvider(
+            tagsLocationRepository: TagsLocationRepository(
+              tagsLocationDataProvider: TagsLocationDataProvider(
+                dio: dio,
+              ),
+            ),
+          ),
+        ),
+        BlocProvider(
           create: (_) => TagLocationHistoryCubit(
-              tagsLocationHistory: TagsLocationRepository(
-                  tagsLocationDataProvider: TagsLocationDataProvider(dio:
-                  dio,),),),),
-    ], child: const OnSpaceAppView(),);
+            tagsLocationHistory: TagsLocationRepository(
+              tagsLocationDataProvider: TagsLocationDataProvider(
+                dio: dio,
+              ),
+            ),
+          ),
+        ),
+      ],
+      child: const OnSpaceAppView(),
+    );
   }
 }
 
@@ -46,15 +56,15 @@ class OnSpaceAppView extends StatelessWidget {
       theme: ThemeData(
         hintColor: AppColors.greyColor,
         colorScheme: ColorScheme.fromSeed(
-            seedColor: AppColors.tertiaryColor,
-            background: AppColors.backgroundWhiteColor,
-            onBackground: AppColors.blackColor,
-            primary: AppColors.primaryColor,
-            onPrimary: AppColors.whiteColor,
-            secondary: AppColors.secondaryColor,
-            onSecondary: AppColors.blackColor,
-            tertiary: AppColors.tertiaryColor,
-            onTertiary: AppColors.whiteColor,
+          seedColor: AppColors.tertiaryColor,
+          background: AppColors.backgroundWhiteColor,
+          onBackground: AppColors.blackColor,
+          primary: AppColors.primaryColor,
+          onPrimary: AppColors.whiteColor,
+          secondary: AppColors.secondaryColor,
+          onSecondary: AppColors.blackColor,
+          tertiary: AppColors.tertiaryColor,
+          onTertiary: AppColors.whiteColor,
           error: AppColors.redColor,
           onError: AppColors.whiteColor,
         ),

@@ -29,22 +29,24 @@ class TagLocationCubit extends Cubit<TagLocationState> {
     }
   }
 
-  Future<void> filterFetchedTagsLocation(
-      {required TagsLocationFilter selectedFilter,}) async {
+  Future<void> filterFetchedTagsLocation({
+    required TagsLocationFilter selectedFilter,
+  }) async {
     filter = selectedFilter;
     try {
       switch (selectedFilter) {
         case TagsLocationFilter.people:
           final filteredUsers = users
-              .where((element) =>
-                  element.category!.toLowerCase().contains('people'),)
+              .where(
+                (element) => element.category!.toLowerCase().contains('people'),
+              )
               .toList();
           emit(TagsLocationLoaded(tagsLocation: filteredUsers));
         case TagsLocationFilter.items:
           final filteredUsers = users
               .where(
-                  (element) => element.category!.toLowerCase().contains('item')
-            ,)
+                (element) => element.category!.toLowerCase().contains('item'),
+              )
               .toList();
           emit(TagsLocationLoaded(tagsLocation: filteredUsers));
         case TagsLocationFilter.all:

@@ -89,34 +89,37 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
           : Stack(
               children: [
                 CustomGoogleMapMarkerBuilder(
-                    customMarkers: context.watch<MarkersCubit>().state,
-                    builder: (context, markers) {
-                      if (markers == null) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                      return GoogleMap(
-                        initialCameraPosition: currentLocation == null
-                            ? const CameraPosition(
-                                target: LatLng(0, 0), zoom: 10,)
-                            : CameraPosition(
-                                target: LatLng(
-                                  currentLocation!.latitude!,
-                                  currentLocation!.longitude!,
-                                ),
-                                zoom: 13.5,
+                  customMarkers: context.watch<MarkersCubit>().state,
+                  builder: (context, markers) {
+                    if (markers == null) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    return GoogleMap(
+                      initialCameraPosition: currentLocation == null
+                          ? const CameraPosition(
+                              target: LatLng(0, 0),
+                              zoom: 10,
+                            )
+                          : CameraPosition(
+                              target: LatLng(
+                                currentLocation!.latitude!,
+                                currentLocation!.longitude!,
                               ),
-                        markers: markers,
-                        compassEnabled: false,
-                        mapToolbarEnabled: false,
-                        tiltGesturesEnabled: false,
-                        myLocationButtonEnabled: false,
-                        myLocationEnabled: true,
-                        rotateGesturesEnabled: false,
-                        zoomControlsEnabled: false,
-                        onMapCreated: (GoogleMapController controller) {},
-                        // onMapCreated: _controller.complete,
-                      );
-                    },),
+                              zoom: 13.5,
+                            ),
+                      markers: markers,
+                      compassEnabled: false,
+                      mapToolbarEnabled: false,
+                      tiltGesturesEnabled: false,
+                      myLocationButtonEnabled: false,
+                      myLocationEnabled: true,
+                      rotateGesturesEnabled: false,
+                      zoomControlsEnabled: false,
+                      onMapCreated: (GoogleMapController controller) {},
+                      // onMapCreated: _controller.complete,
+                    );
+                  },
+                ),
                 Positioned(
                   top: 100,
                   left: 10,
@@ -125,8 +128,9 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
                     builder: (context, state) {
                       if (state is TagsLocationLoading) {
                         return const LoadingWidget(
-                            loadingText: 'Loading tags and '
-                                'their location...',);
+                          loadingText: 'Loading tags and '
+                              'their location...',
+                        );
                       } else if (state is TagsLocationLoaded) {
                         final profileList = state.tagsLocation;
                         for (final profile in profileList) {
@@ -138,13 +142,14 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
                         return Container();
                       } else if (state is TagsLocationError) {
                         return ErrorCardWidget(
-                            retry: () => context
-                                .read<TagLocationCubit>()
-                                .fetchTagsLocation(),
-                            errorText: "An error occurred and we couldn't "
-                                'fetch your tags and their location, Press the'
-                                ' button and'
-                                ' try again.',);
+                          retry: () => context
+                              .read<TagLocationCubit>()
+                              .fetchTagsLocation(),
+                          errorText: "An error occurred and we couldn't "
+                              'fetch your tags and their location, Press the'
+                              ' button and'
+                              ' try again.',
+                        );
                       } else {
                         return Container();
                       }
@@ -259,254 +264,264 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
                       Padding(
                         padding: const EdgeInsets.only(top: 8, bottom: 8),
                         child: CurvedCard(
-                            color: theme.colorScheme.primary,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 10, right: 10, top: 20, bottom: 20,),
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                          color: theme.colorScheme.primary,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              left: 10,
+                              right: 10,
+                              top: 20,
+                              bottom: 20,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Row(
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsets.zero,
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  context
-                                                      .read<MarkersCubit>()
-                                                      .clearMarkers();
-                                                  context
-                                                      .read<TagLocationCubit>()
-                                                      .filterFetchedTagsLocation
-                                                    (
-                                                          selectedFilter:
-                                                              TagsLocationFilter
-                                                                  .all,);
-                                                },
-                                                child: Card(
-                                                  color: Colors.white38,
-                                                  elevation: 0,
-                                                  margin: EdgeInsets.zero,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50,),
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                      left: 20,
-                                                      right: 20,
-                                                      top: 2,
-                                                      bottom: 2,
-                                                    ),
-                                                    child: Text('All',
-                                                        style: TextStyle(
-                                                          color: theme
-                                                              .colorScheme
-                                                              .tertiary,
-                                                          fontSize: 14,
-                                                          fontFamily: 'Spline',
-                                                          fontWeight:
-                                                          context.watch
-                                                          <TagLocationCubit>()
-                                                              .filter ==
-                                                              TagsLocationFilter
-                                                                      .all
-                                                              ? FontWeight.bold
-                                                              : FontWeight
-                                                                  .normal,
-                                                        ),),
-                                                  ),
+                                        Padding(
+                                          padding: EdgeInsets.zero,
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              context
+                                                  .read<MarkersCubit>()
+                                                  .clearMarkers();
+                                              context
+                                                  .read<TagLocationCubit>()
+                                                  .filterFetchedTagsLocation(
+                                                    selectedFilter:
+                                                        TagsLocationFilter.all,
+                                                  );
+                                            },
+                                            child: Card(
+                                              color: Colors.white38,
+                                              elevation: 0,
+                                              margin: EdgeInsets.zero,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                  50,
                                                 ),
                                               ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 10,),
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  context
-                                                      .read<MarkersCubit>()
-                                                      .clearMarkers();
-                                                  context.read
-                                                  <TagLocationCubit>()
-                                                      .filterFetchedTagsLocation
-                                                    (
-                                                          selectedFilter:
-                                                              TagsLocationFilter
-                                                                  .people,);
-                                                },
-                                                child: Card(
-                                                  color: Colors.white38,
-                                                  elevation: 0,
-                                                  margin: EdgeInsets.zero,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50,),
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                      left: 20,
-                                                      right: 20,
-                                                      top: 2,
-                                                      bottom: 2,
-                                                    ),
-                                                    child: Text('People', style:
-                                                    TextStyle(color: theme
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                  left: 20,
+                                                  right: 20,
+                                                  top: 2,
+                                                  bottom: 2,
+                                                ),
+                                                child: Text(
+                                                  'All',
+                                                  style: TextStyle(
+                                                    color: theme
                                                         .colorScheme.tertiary,
-                                                      fontSize: 14,
-                                                      fontFamily: 'Spline',
-                                                      fontWeight: context.watch<
-                                                                TagLocationCubit
-                                                            >().filter ==
-                                                          TagsLocationFilter
-                                                              .people
-                                                                ? FontWeight
-                                                                    .bold
-                                                                : FontWeight
-                                                                    .normal,),),
+                                                    fontSize: 14,
+                                                    fontFamily: 'Spline',
+                                                    fontWeight: context
+                                                                .watch<
+                                                                    TagLocationCubit>()
+                                                                .filter ==
+                                                            TagsLocationFilter
+                                                                .all
+                                                        ? FontWeight.bold
+                                                        : FontWeight.normal,
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 10,),
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  context
-                                                      .read<MarkersCubit>()
-                                                      .clearMarkers();
-                                                  context
-                                                      .read<TagLocationCubit>()
-                                                      .filterFetchedTagsLocation
-                                                    (selectedFilter:
-                                                              TagsLocationFilter
-                                                                  .items,);
-                                                },
-                                                child: Card(
-                                                  color: Colors.white38,
-                                                  elevation: 0,
-                                                  margin: EdgeInsets.zero,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50,),
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                      left: 20,
-                                                      right: 20,
-                                                      top: 2,
-                                                      bottom: 2,
-                                                    ),
-                                                    child: Text('Items', style:
-                                                    TextStyle(color: theme.
-                                                    colorScheme.tertiary,
-                                                        fontSize: 14,fontFamily:
-                                                        'Spline', fontWeight:
-                                                        context.watch<
-                                                            TagLocationCubit>()
-                                                                        .filter
-                                                            ==TagsLocationFilter
-                                                            .items ? FontWeight
-                                                            .bold
-                                                                : FontWeight
-                                                                    .normal,),),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        const Spacer(),
-                                        CustomContainer(
-                                            child: Padding(
-                                          padding: const EdgeInsets.all(1),
-                                          child: Icon(
-                                            Icons.more_horiz_rounded,
-                                            color: theme.colorScheme.tertiary,
                                           ),
-                                        ),),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                            left: 10,
+                                          ),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              context
+                                                  .read<MarkersCubit>()
+                                                  .clearMarkers();
+                                              context
+                                                  .read<TagLocationCubit>()
+                                                  .filterFetchedTagsLocation(
+                                                    selectedFilter:
+                                                        TagsLocationFilter
+                                                            .people,
+                                                  );
+                                            },
+                                            child: Card(
+                                              color: Colors.white38,
+                                              elevation: 0,
+                                              margin: EdgeInsets.zero,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                  50,
+                                                ),
+                                              ),
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                  left: 20,
+                                                  right: 20,
+                                                  top: 2,
+                                                  bottom: 2,
+                                                ),
+                                                child: Text(
+                                                  'People',
+                                                  style: TextStyle(
+                                                    color: theme
+                                                        .colorScheme.tertiary,
+                                                    fontSize: 14,
+                                                    fontFamily: 'Spline',
+                                                    fontWeight: context
+                                                                .watch<
+                                                                    TagLocationCubit>()
+                                                                .filter ==
+                                                            TagsLocationFilter
+                                                                .people
+                                                        ? FontWeight.bold
+                                                        : FontWeight.normal,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                            left: 10,
+                                          ),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              context
+                                                  .read<MarkersCubit>()
+                                                  .clearMarkers();
+                                              context
+                                                  .read<TagLocationCubit>()
+                                                  .filterFetchedTagsLocation(
+                                                    selectedFilter:
+                                                        TagsLocationFilter
+                                                            .items,
+                                                  );
+                                            },
+                                            child: Card(
+                                              color: Colors.white38,
+                                              elevation: 0,
+                                              margin: EdgeInsets.zero,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                  50,
+                                                ),
+                                              ),
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                  left: 20,
+                                                  right: 20,
+                                                  top: 2,
+                                                  bottom: 2,
+                                                ),
+                                                child: Text(
+                                                  'Items',
+                                                  style: TextStyle(
+                                                    color: theme
+                                                        .colorScheme.tertiary,
+                                                    fontSize: 14,
+                                                    fontFamily: 'Spline',
+                                                    fontWeight: context
+                                                                .watch<
+                                                                    TagLocationCubit>()
+                                                                .filter ==
+                                                            TagsLocationFilter
+                                                                .items
+                                                        ? FontWeight.bold
+                                                        : FontWeight.normal,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                       ],
                                     ),
-                                    const SizedBox(
-                                      height: 15,
+                                    const Spacer(),
+                                    CustomContainer(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(1),
+                                        child: Icon(
+                                          Icons.more_horiz_rounded,
+                                          color: theme.colorScheme.tertiary,
+                                        ),
+                                      ),
                                     ),
-                                    BlocBuilder<TagLocationCubit,
-                                        TagLocationState>(
-                                      builder: (context, state) {
-                                        if (state is TagsLocationLoading) {
-                                          return Center(
-                                              child: CircularProgressIndicator(
-                                            color: theme.colorScheme.secondary,
-                                          ),);
-                                        } else if (state
-                                            is TagsLocationLoaded) {
-                                          final profileList =
-                                              state.tagsLocation;
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                BlocBuilder<TagLocationCubit, TagLocationState>(
+                                  builder: (context, state) {
+                                    if (state is TagsLocationLoading) {
+                                      return Center(
+                                        child: CircularProgressIndicator(
+                                          color: theme.colorScheme.secondary,
+                                        ),
+                                      );
+                                    } else if (state is TagsLocationLoaded) {
+                                      final profileList = state.tagsLocation;
 
-                                          return profileList.isEmpty
-                                              ? Center(
-                                                  child: Text(
-                                                    "You don't have any tags",
-                                                    style: TextStyle(
-                                                      color: theme
-                                                          .colorScheme.tertiary,
-                                                      fontSize: 14,
-                                                      fontFamily: 'Spline',
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                    ),
-                                                  ),
-                                                )
-                                              : ListView.builder(
-                                                  shrinkWrap: true,
-                                                  padding: EdgeInsets.zero,
-                                                  itemCount:
-                                                      profileList.length > 2
-                                                          ? 2
-                                                          : profileList.length,
-                                                  itemBuilder:
-                                                      (context, index) {
-                                                    return TagsCard(
-                                                      userProfile:
-                                                          profileList[index],
-                                                      isRecent: index == 0,
-                                                    );
-                                                  },
-                                                );
-                                        } else if (state is TagsLocationError) {
-                                          return Center(
-                                            child: Text(
-                                              'An error occurred and we '
-                                                  "couldn't fetch your tags and"
-                                                  ' their'
-                                              ' location',
-                                              style: TextStyle(
-                                                color:
-                                                    theme.colorScheme.tertiary,
-                                                fontSize: 14,
-                                                fontFamily: 'Spline',
-                                                fontWeight: FontWeight.normal,
+                                      return profileList.isEmpty
+                                          ? Center(
+                                              child: Text(
+                                                "You don't have any tags",
+                                                style: TextStyle(
+                                                  color: theme
+                                                      .colorScheme.tertiary,
+                                                  fontSize: 14,
+                                                  fontFamily: 'Spline',
+                                                  fontWeight: FontWeight.normal,
+                                                ),
                                               ),
-                                            ),
-                                          );
-                                        } else {
-                                          return Container();
-                                        }
-                                      },
-                                    ),
-                                  ],),
-                            ),),
+                                            )
+                                          : ListView.builder(
+                                              shrinkWrap: true,
+                                              padding: EdgeInsets.zero,
+                                              itemCount: profileList.length > 2
+                                                  ? 2
+                                                  : profileList.length,
+                                              itemBuilder: (context, index) {
+                                                return TagsCard(
+                                                  userProfile:
+                                                      profileList[index],
+                                                  isRecent: index == 0,
+                                                );
+                                              },
+                                            );
+                                    } else if (state is TagsLocationError) {
+                                      return Center(
+                                        child: Text(
+                                          'An error occurred and we '
+                                          "couldn't fetch your tags and"
+                                          ' their'
+                                          ' location',
+                                          style: TextStyle(
+                                            color: theme.colorScheme.tertiary,
+                                            fontSize: 14,
+                                            fontFamily: 'Spline',
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        ),
+                                      );
+                                    } else {
+                                      return Container();
+                                    }
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -542,8 +557,10 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
                         containerSize: 40,
                         child: Transform.rotate(
                           angle: 1,
-                          child: Icon(Icons.navigation_outlined,
-                              color: theme.colorScheme.tertiary,),
+                          child: Icon(
+                            Icons.navigation_outlined,
+                            color: theme.colorScheme.tertiary,
+                          ),
                         ),
                       ),
                     ],
@@ -558,13 +575,17 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
                     children: [
                       CircularIconButton(
                         containerSize: 40,
-                        child: Icon(Icons.search_rounded,
-                            color: theme.colorScheme.tertiary,),
+                        child: Icon(
+                          Icons.search_rounded,
+                          color: theme.colorScheme.tertiary,
+                        ),
                       ),
                       CircularIconButton(
                         containerSize: 40,
-                        child: Icon(Icons.settings,
-                            color: theme.colorScheme.tertiary,),
+                        child: Icon(
+                          Icons.settings,
+                          color: theme.colorScheme.tertiary,
+                        ),
                       ),
                     ],
                   ),

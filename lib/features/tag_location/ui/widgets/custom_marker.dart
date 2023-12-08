@@ -12,11 +12,10 @@ class CustomMapMarker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final theme = Theme.of(context);
     return Stack(
       children: [
-       Icon(
+        Icon(
           Icons.location_on,
           color: theme.colorScheme.tertiary,
           size: 55,
@@ -29,8 +28,9 @@ class CustomMapMarker extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(
-                    color: theme.colorScheme.tertiary, borderRadius:
-                BorderRadius.circular(4),),
+                  color: theme.colorScheme.tertiary,
+                  borderRadius: BorderRadius.circular(4),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(2),
                   child: Container(
@@ -38,20 +38,29 @@ class CustomMapMarker extends StatelessWidget {
                     height: 30,
                     padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                        image: DecorationImage(image: FileImage(file),
-                            fit: BoxFit.fill,),
-                        color: theme.colorScheme.tertiary, borderRadius:
-                    BorderRadius.circular(4),),
+                      image: DecorationImage(
+                        image: FileImage(file),
+                        fit: BoxFit.fill,
+                      ),
+                      color: theme.colorScheme.tertiary,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
                     // child: Image.file(file)
                   ),
                 ),
               ),
-              const SizedBox(height: 2,),
+              const SizedBox(
+                height: 2,
+              ),
               CircularIconButton(
-                  containerColor: theme.colorScheme.tertiary,
-                  containerSize: 15,
-                  child: Icon(Icons.school_outlined,
-                      color: theme.colorScheme.secondary, size: 10,),),
+                containerColor: theme.colorScheme.tertiary,
+                containerSize: 15,
+                child: Icon(
+                  Icons.school_outlined,
+                  color: theme.colorScheme.secondary,
+                  size: 10,
+                ),
+              ),
             ],
           ),
         ),

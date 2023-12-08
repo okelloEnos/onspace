@@ -4,7 +4,6 @@ part 'profile.g.dart';
 
 @JsonSerializable()
 class Profile {
-
   Profile({
     this.userId,
     this.name,
@@ -12,7 +11,6 @@ class Profile {
     this.avatar,
     this.location,
   });
-
 
   factory Profile.fromJson(Map<String, dynamic> json) =>
       _$ProfileFromJson(json);
@@ -28,7 +26,6 @@ class Profile {
 
 @JsonSerializable()
 class LocationDetail {
-
   LocationDetail({
     this.latitude,
     this.longitude,

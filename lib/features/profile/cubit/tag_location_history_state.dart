@@ -15,7 +15,6 @@ class TagsLocationHistoryLoading extends TagLocationHistoryState {
 }
 
 class TagsLocationHistoryLoaded extends TagLocationHistoryState {
-
   const TagsLocationHistoryLoaded({required this.tagsLocationHistory});
   final List<LocationDetail> tagsLocationHistory;
 
@@ -24,7 +23,6 @@ class TagsLocationHistoryLoaded extends TagLocationHistoryState {
 }
 
 class TagsLocationHistoryError extends TagLocationHistoryState {
-
   const TagsLocationHistoryError({required this.errorMessage});
   final String errorMessage;
 
