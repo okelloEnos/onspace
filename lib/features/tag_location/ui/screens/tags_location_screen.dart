@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:ui' as ui;
 
+import 'package:custom_map_markers/custom_map_markers.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,14 +10,20 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:onspace/features/tag_location/cubit/tag_location_cubit.dart';
 import 'package:onspace/features/tag_location/ui/widgets/tag_card.dart';
+import 'package:onspace/map/c.dart';
+import 'package:onspace/map/g.dart';
+import 'package:onspace/map/p.dart';
 import 'package:onspace/resources/common_widget/circular_button_widget.dart';
 import 'package:onspace/resources/common_widget/curved_card.dart';
 import 'package:onspace/resources/common_widget/custom_container.dart';
 import 'package:onspace/resources/common_widget/error_card_widget.dart';
 import 'package:onspace/resources/common_widget/loading_widget.dart';
 
+import '../../../../map/custom_markers_widget.dart';
+import '../../../../map/fd.dart';
 import '../../../profile/ui/screens/profile_screens.dart';
 import '../../cubit/markers_cubit.dart';
+import '../../cubit/markers_updated_cubit.dart';
 import '../../data/model/profile.dart';
 
 class TagsLocationScreen extends StatefulWidget {
@@ -78,7 +86,6 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
     });
     setCustomMarkerIcon();
     getCurrentLocation();
-
     super.initState();
   }
 
@@ -86,34 +93,39 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
- var markers1 = context.watch<MarkersCubit>().state;
-
     return Scaffold(
       body: currentLocation == null
           ? const Center(child: Text('Loading'))
           : Stack(
         children: [
-          GoogleMap(
-            // zoomControlsEnabled: false,
-            initialCameraPosition: currentLocation == null
-                ? const CameraPosition(target: LatLng(0, 0), zoom: 10)
-                : CameraPosition(
-              target: LatLng(
-                currentLocation!.latitude!,
-                currentLocation!.longitude!,
-              ),
-              zoom: 13.5,
-            ),
-            markers: context.watch<MarkersCubit>().state.keys.toSet(),
-            compassEnabled: false,
-            mapToolbarEnabled: false,
-            tiltGesturesEnabled: false,
-            myLocationButtonEnabled: false,
-            myLocationEnabled: true,
-            rotateGesturesEnabled: false,
-            zoomControlsEnabled: false,
-            onMapCreated: _controller.complete,
-          ),
+          CustomGoogleMapMarkerBuilder(
+              customMarkers: context.watch<MarkersUpdatedCubit>().state,
+              builder: (context, markers){
+                if(markers == null){
+                  return const Center(child: CircularProgressIndicator());
+                }
+                return GoogleMap(
+                  initialCameraPosition: currentLocation == null
+                      ? const CameraPosition(target: LatLng(0, 0), zoom: 10)
+                      : CameraPosition(
+                    target: LatLng(
+                      currentLocation!.latitude!,
+                      currentLocation!.longitude!,
+                    ),
+                    zoom: 13.5,
+                  ),
+                  markers: markers,
+                  compassEnabled: false,
+                  mapToolbarEnabled: false,
+                  tiltGesturesEnabled: false,
+                  myLocationButtonEnabled: false,
+                  myLocationEnabled: true,
+                  rotateGesturesEnabled: false,
+                  zoomControlsEnabled: false,
+                  onMapCreated: (GoogleMapController controller) {},
+                  // onMapCreated: _controller.complete,
+                );
+              }),
           Positioned(
             top: 100,
             left: 10,
@@ -126,21 +138,21 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
                 }
                 else if(state is TagsLocationLoaded) {
 
-                    final profileList = state.tagsLocation;
-                    for(Profile profile in profileList){
-                      context.read<MarkersCubit>().addMarker(context, profile);
-                    }
+                  final profileList = state.tagsLocation;
+                  for(Profile profile in profileList){
+                    context.read<MarkersUpdatedCubit>().addMarker(context, profile);
+                  }
 
-                  return Text("data: ${state.tagsLocation.length} || Markers: ${markers1.length}");
+                  return Container();
                 }
                 else if(state is TagsLocationError) {
                   return ErrorCardWidget(
                       retry: () => context.read<TagLocationCubit>()
                           .fetchTagsLocation(),
                       errorText: "An error occurred and we couldn't "
-                      "fetch your tags and their location, Press the"
-                      " button and"
-                      " try again.");
+                          "fetch your tags and their location, Press the"
+                          " button and"
+                          " try again.");
                 }
                 else {
                   return Container();
@@ -276,7 +288,7 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
                                         const EdgeInsets.only(left: 0),
                                         child: GestureDetector(
                                           onTap: () {
-                                            context.read<MarkersCubit>()
+                                            context.read<MarkersUpdatedCubit>()
                                                 .clearMarkers();
                                             context.read<TagLocationCubit>()
                                                 .filterFetchedTagsLocation(
@@ -300,13 +312,13 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
                                               ),
                                               child: Text("All",
                                                   style: TextStyle(
-                                                      color: theme.colorScheme
-                                                          .tertiary,
-                                                      fontSize: 14,
-                                                      fontFamily: 'Spline',
-                                                      fontWeight:
-                                                      context.watch<TagLocationCubit>().filter == TagsLocationFilter.all ? FontWeight.bold : FontWeight.normal,
-                                                      )),
+                                                    color: theme.colorScheme
+                                                        .tertiary,
+                                                    fontSize: 14,
+                                                    fontFamily: 'Spline',
+                                                    fontWeight:
+                                                    context.watch<TagLocationCubit>().filter == TagsLocationFilter.all ? FontWeight.bold : FontWeight.normal,
+                                                  )),
                                             ),
                                           ),
                                         ),
@@ -316,7 +328,7 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
                                         const EdgeInsets.only(left: 10),
                                         child: GestureDetector(
                                           onTap: () {
-                                            context.read<MarkersCubit>()
+                                            context.read<MarkersUpdatedCubit>()
                                                 .clearMarkers();
                                             context.read<TagLocationCubit>()
                                                 .filterFetchedTagsLocation(
@@ -355,7 +367,7 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
                                         const EdgeInsets.only(left: 10),
                                         child: GestureDetector(
                                           onTap: () {
-                                            context.read<MarkersCubit>()
+                                            context.read<MarkersUpdatedCubit>()
                                                 .clearMarkers();
                                             context.read<TagLocationCubit>()
                                                 .filterFetchedTagsLocation(
@@ -405,56 +417,56 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
                                 height: 15,
                               ),
                               BlocBuilder<TagLocationCubit, TagLocationState>(
-  builder: (context, state) {
-    if(state is TagsLocationLoading) {
-      return Center(child: CircularProgressIndicator(
-        color: theme.colorScheme.secondary,
-      ));
-    }
-    else if(state is TagsLocationLoaded) {
-      final profileList = state.tagsLocation;
+                                builder: (context, state) {
+                                  if(state is TagsLocationLoading) {
+                                    return Center(child: CircularProgressIndicator(
+                                      color: theme.colorScheme.secondary,
+                                    ));
+                                  }
+                                  else if(state is TagsLocationLoaded) {
+                                    final profileList = state.tagsLocation;
 
-      return
-        profileList.isEmpty ? Center(
-          child: Text("You don't have any tags",
-            style: TextStyle(
-              color: theme.colorScheme.tertiary,
-              fontSize: 14,
-              fontFamily: 'Spline',
-              fontWeight: FontWeight.normal,
-            ),
-          ),
-        ) :
-        ListView.builder(
-        shrinkWrap: true,
-        padding: EdgeInsets.zero,
-        itemCount: profileList.length > 2 ? 2 : profileList.length,
-        itemBuilder: (context, index) {
-          return TagsCard(
-            userProfile: profileList[index],
-            isRecent: index == 0,
-          );
-        },
-      );
-    }
-    else if(state is TagsLocationError) {
-      return Center(
-        child: Text("An error occurred and we couldn't fetch your tags and their"
-            ' location',
-          style: TextStyle(
-            color: theme.colorScheme.tertiary,
-            fontSize: 14,
-            fontFamily: 'Spline',
-            fontWeight: FontWeight.normal,
-          ),
-        ),
-      );
-    }
-    else {
-      return Container();
-    }
-  },
-)
+                                    return
+                                      profileList.isEmpty ? Center(
+                                        child: Text("You don't have any tags",
+                                          style: TextStyle(
+                                            color: theme.colorScheme.tertiary,
+                                            fontSize: 14,
+                                            fontFamily: 'Spline',
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        ),
+                                      ) :
+                                      ListView.builder(
+                                        shrinkWrap: true,
+                                        padding: EdgeInsets.zero,
+                                        itemCount: profileList.length > 2 ? 2 : profileList.length,
+                                        itemBuilder: (context, index) {
+                                          return TagsCard(
+                                            userProfile: profileList[index],
+                                            isRecent: index == 0,
+                                          );
+                                        },
+                                      );
+                                  }
+                                  else if(state is TagsLocationError) {
+                                    return Center(
+                                      child: Text("An error occurred and we couldn't fetch your tags and their"
+                                          ' location',
+                                        style: TextStyle(
+                                          color: theme.colorScheme.tertiary,
+                                          fontSize: 14,
+                                          fontFamily: 'Spline',
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  else {
+                                    return Container();
+                                  }
+                                },
+                              )
                             ]),
                       )),
                 ),
@@ -469,11 +481,11 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CircularIconButton(
-                    child: Icon(
-                  Icons.add,
-                  color: theme.colorScheme.tertiary,
-                ),
-                containerSize: 40,
+                  child: Icon(
+                    Icons.add,
+                    color: theme.colorScheme.tertiary,
+                  ),
+                  containerSize: 40,
                 ),
                 const SizedBox(
                   height: 10,
@@ -506,10 +518,13 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CircularIconButton(
-                  child: Icon(Icons.search_rounded,
-                      color: theme.colorScheme.tertiary),
-                  containerSize: 40,
+                GestureDetector(
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => TagsLocationScreen())),
+                  child: CircularIconButton(
+                    child: Icon(Icons.search_rounded,
+                        color: theme.colorScheme.tertiary),
+                    containerSize: 40,
+                  ),
                 ),
                 CircularIconButton(
                   child: Icon(Icons.settings,
@@ -521,6 +536,60 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _customMarker(String symbol, Color color) {
+    return Stack(
+      children: [
+        Icon(
+          Icons.add_location,
+          color: color,
+          size: 50,
+        ),
+        Positioned(
+          left: 15,
+          top: 8,
+          child: Container(
+            width: 20,
+            height: 20,
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(10)),
+            child: Center(child: Text(symbol)),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _customMarker2(String symbol, Color color) {
+    return Container(
+      width: 30,
+      height: 30,
+      margin: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+          border: Border.all(color: color, width: 2),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [BoxShadow(color: color, blurRadius: 6)]),
+      child: Center(child: Text(symbol)),
+    );
+  }
+
+  Widget _customMarker3(String text, Color color) {
+    return Container(
+      margin: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+          border: Border.all(color: color, width: 2),
+          color: Colors.red,
+          borderRadius: BorderRadius.circular(4),
+          boxShadow: [BoxShadow(color: color, blurRadius: 6)]),
+      child: Center(
+          child: Text(
+            text,
+            textAlign: TextAlign.center,
+          )),
     );
   }
 }

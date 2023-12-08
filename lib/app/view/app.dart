@@ -8,10 +8,15 @@ import 'package:onspace/features/tag_location/cubit/tag_location_cubit.dart';
 import 'package:onspace/features/tag_location/data/data_provider/tags_location_data_provider.dart';
 import 'package:onspace/features/tag_location/data/repository/tags_location_history.dart';
 import 'package:onspace/l10n/l10n.dart';
+import 'package:onspace/map/custom_markers_widget.dart';
+import 'package:onspace/map/d.dart';
+import 'package:onspace/map/fd.dart';
 import 'package:onspace/resources/constants/app_colors.dart';
 
 import '../../features/tag_location/cubit/markers_cubit.dart';
+import '../../features/tag_location/cubit/markers_updated_cubit.dart';
 import '../../main_development.dart';
+import '../../map/l.dart';
 
 class OnSpaceApp extends StatelessWidget {
   const OnSpaceApp({super.key});
@@ -21,7 +26,7 @@ class OnSpaceApp extends StatelessWidget {
     return MultiBlocProvider(providers: [
       BlocProvider(create: (_) => BottomNavigationBarCubit()),
       BlocProvider(create: (_) => BottomNavigationHistoryCubit()),
-      BlocProvider(create: (_) => MarkersCubit()),
+      BlocProvider(create: (_) => MarkersUpdatedCubit()),
       BlocProvider(
           create: (_) => TagLocationCubit(
               tagsLocationRepository: TagsLocationRepository(
@@ -64,6 +69,7 @@ class OnSpaceAppView extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       debugShowCheckedModeBanner: false,
+      // home: MapWithCustomMarkers(),
       home: const HomeScreen(),
     );
   }

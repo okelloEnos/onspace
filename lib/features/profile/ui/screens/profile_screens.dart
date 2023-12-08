@@ -47,15 +47,18 @@ class _ProfileScreensState extends State<ProfileScreens> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CircularIconButton(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 5.0),
-                          child: Icon(Icons.arrow_back_ios,
-                            size: 20,
-                          color: theme.colorScheme.tertiary,
+                      GestureDetector(
+                        onTap: () => Navigator.pop(context),
+                        child: CircularIconButton(
+                          containerSize: 45,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: Icon(Icons.arrow_back_ios,
+                              size: 20,
+                            color: theme.colorScheme.tertiary,
+                            ),
                           ),
                         ),
-                        containerSize: 45,
                       ),
                       Text('${_profile.name}', style: TextStyle(
                         fontSize: 24,
@@ -238,97 +241,101 @@ class _ProfileScreensState extends State<ProfileScreens> {
                         ),
                     ),
                   ),
-                  CurvedCard(
-                    color: theme.colorScheme.secondary,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          top: 20, bottom: 20, left: 10, right: 10
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Last updates",
-                                style: TextStyle(
-                                    color: theme.colorScheme.tertiary,
-                                    fontSize: 22,
-                                    fontFamily: 'Spline',
-                                    fontWeight: FontWeight.bold
+                  Expanded(
+                    child: CurvedCard(
+                      color: theme.colorScheme.secondary,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            top: 20, bottom: 20, left: 10, right: 10
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Last updates",
+                                  style: TextStyle(
+                                      color: theme.colorScheme.tertiary,
+                                      fontSize: 22,
+                                      fontFamily: 'Spline',
+                                      fontWeight: FontWeight.bold
+                                  ),
                                 ),
-                              ),
-                              CustomContainer(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8),
-                                    child: RotatedBox(
-                                      quarterTurns: 3,
-                                      child: Icon(Icons.arrow_forward_ios,
-                                        color: theme.colorScheme.tertiary, size: 20,),
-                                    ),
-                                  ))
-                            ],
-                          ),
-                          const SizedBox(height: 20,),
-                          BlocBuilder<TagLocationHistoryCubit, TagLocationHistoryState>(
-                              builder: (context, state){
-                                if(state is TagsLocationHistoryLoading){
-                                  return const LoadingWidget(loadingText:
-                                  'Loading past location history...');
-                                }
-                                else if(state is TagsLocationHistoryLoaded){
-                                  final List<LocationDetail> locationHistory = state.tagsLocationHistory;
-                                  return ListView.builder(
-                                    itemCount: locationHistory.length,
-                                      shrinkWrap: true,
-                                      padding: EdgeInsets.zero,
-                                      // physics: const NeverScrollableScrollPhysics(),
-                                      itemBuilder: (context, index){
-                                        final LocationDetail history = locationHistory[index];
-                                        return Padding(
-                                          padding: const EdgeInsets.only(
-                                              bottom: 10
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text("${history.street}",
-                                                style: TextStyle(
-                                                    color: theme.colorScheme.tertiary,
-                                                    fontSize: 16,
-                                                    fontFamily: 'Spline',
-                                                    fontWeight: FontWeight.normal
-                                                ),
+                                CustomContainer(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8),
+                                      child: RotatedBox(
+                                        quarterTurns: 3,
+                                        child: Icon(Icons.arrow_forward_ios,
+                                          color: theme.colorScheme.tertiary, size: 20,),
+                                      ),
+                                    ))
+                              ],
+                            ),
+                            const SizedBox(height: 10,),
+                            Expanded(
+                              child: BlocBuilder<TagLocationHistoryCubit, TagLocationHistoryState>(
+                                  builder: (context, state){
+                                    if(state is TagsLocationHistoryLoading){
+                                      return const LoadingWidget(loadingText:
+                                      'Loading past location history...');
+                                    }
+                                    else if(state is TagsLocationHistoryLoaded){
+                                      final List<LocationDetail> locationHistory = state.tagsLocationHistory;
+                                      return ListView.builder(
+                                        itemCount: locationHistory.length,
+                                          shrinkWrap: true,
+                                          padding: EdgeInsets.zero,
+                                          // physics: const NeverScrollableScrollPhysics(),
+                                          itemBuilder: (context, index){
+                                            final LocationDetail history = locationHistory[index];
+                                            return Padding(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 10
                                               ),
-                                              Text("Since "
-                                                  "${DateTime.tryParse("${history.updatedOn}")?.hour}"
-                                                  ":${NumberFormat("00").format(DateTime.tryParse("${history.updatedOn}")?.minute)}",
-                                                style: TextStyle(
-                                                    color: theme.colorScheme.tertiary,
-                                                    fontSize: 16,
-                                                    fontFamily: 'Spline',
-                                                    fontWeight: FontWeight.bold
-                                                ),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text("${history.street}",
+                                                    style: TextStyle(
+                                                        color: theme.colorScheme.tertiary,
+                                                        fontSize: 16,
+                                                        fontFamily: 'Spline',
+                                                        fontWeight: FontWeight.normal
+                                                    ),
+                                                  ),
+                                                  Text("Since "
+                                                      "${DateTime.tryParse("${history.updatedOn}")?.hour}"
+                                                      ":${NumberFormat("00").format(DateTime.tryParse("${history.updatedOn}")?.minute)}",
+                                                    style: TextStyle(
+                                                        color: theme.colorScheme.tertiary,
+                                                        fontSize: 16,
+                                                        fontFamily: 'Spline',
+                                                        fontWeight: FontWeight.bold
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                            ],
-                                          ),
-                                        );
-                                      }
-                                  );
-                                }
-                                else if(state is TagsLocationHistoryLoaded){
-                                  return ErrorCardWidget(
-                                      errorText: 'An error occurred while '
-                                          'loading location history',
-                                      retry: () =>
-                                          context.read<TagLocationHistoryCubit>()
-                                          .fetchTagsLocationHistory(userId: '${_profile.userId}'));
-                                }
-                                else{
-                                  return Container();
-                                }
-                              }),
-                        ],
+                                            );
+                                          }
+                                      );
+                                    }
+                                    else if(state is TagsLocationHistoryLoaded){
+                                      return ErrorCardWidget(
+                                          errorText: 'An error occurred while '
+                                              'loading location history',
+                                          retry: () =>
+                                              context.read<TagLocationHistoryCubit>()
+                                              .fetchTagsLocationHistory(userId: '${_profile.userId}'));
+                                    }
+                                    else{
+                                      return Container();
+                                    }
+                                  }),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
