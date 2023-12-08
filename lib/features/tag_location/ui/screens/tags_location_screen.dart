@@ -63,15 +63,18 @@ class _TagsLocationScreenState extends State<TagsLocationScreen> {
           ),
         );
       });
+      setState(() {
+
+      });
     }
   }
 
   @override
   void initState() {
-    currentLocation = LocationData.fromMap({
-      'latitude': 0.0,
-      'longitude': 0.0,
-    });
+    // currentLocation = LocationData.fromMap({
+    //   'latitude': 0.0,
+    //   'longitude': 0.0,
+    // });
     // setCustomMarkerIcon();
     getCurrentLocation();
     super.initState();
