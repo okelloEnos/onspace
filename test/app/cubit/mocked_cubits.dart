@@ -6,26 +6,20 @@ import 'package:onspace/features/profile/cubit/tag_location_history_cubit.dart';
 import 'package:onspace/features/tag_location/cubit/markers_cubit.dart';
 import 'package:onspace/features/tag_location/cubit/tag_location_cubit.dart';
 
-class MockBottomNavigationCubit
-    extends MockCubit<int>
+class MockBottomNavigationCubit extends MockCubit<int>
     implements BottomNavigationBarCubit {}
 
-class MockBottomNavigationHistoryCubit
-    extends MockCubit<List<int>>
+class MockBottomNavigationHistoryCubit extends MockCubit<List<int>>
     implements BottomNavigationHistoryCubit {}
 
-class MockMarkersCubit
-    extends MockCubit<List<MarkerData>>
+class MockMarkersCubit extends MockCubit<List<MarkerData>>
     implements MarkersCubit {}
 
-class MockTagLocationCubit
-    extends MockCubit<TagLocationState>
+class MockTagLocationCubit extends MockCubit<TagLocationState>
     implements TagLocationCubit {
   @override
   TagsLocationFilter filter = TagsLocationFilter.all;
-
 }
 
-class MockTagLocationHistoryCubit
-    extends MockCubit<TagLocationHistoryState>
+class MockTagLocationHistoryCubit extends MockCubit<TagLocationHistoryState>
     implements TagLocationHistoryCubit {}
