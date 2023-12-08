@@ -32,7 +32,7 @@ jobs:
 
   build_apk:
     name: Build OnSpace APK (Production)
-    needs: [semantic-pull-request, build, spell-check]
+#    needs: [semantic-pull-request, build, spell-check]
     runs-on: ubuntu-latest
     steps:
       - name: Clean Gradle Cache
