@@ -16,7 +16,7 @@ class TagsLocationDataProvider {
       return client;
     };
 
-    final response = await _dio.get(tagsUrl);
+    final response = await _dio.get<List<dynamic>>(tagsUrl);
     return response.data;
   }
 
@@ -29,7 +29,7 @@ class TagsLocationDataProvider {
             (X509Certificate cert, String host, int port) => true;
       return client;
     };
-    final response = await _dio.get(tagsUrl);
+    final response = await _dio.get<List<dynamic>>(tagsUrl);
     return response.data;
   }
 }
