@@ -35,12 +35,12 @@ jobs:
     needs: [semantic-pull-request, build, spell-check]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-java@v2
         with:
           distribution: 'zulu'
           java-version: '11'
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.13.9'
